@@ -154,11 +154,11 @@ eSmile.jokeModel = (function(config){
 			{jokeValue: joke, jokeTeller: eSmile.username}, 
 			function(data){
 				addJokePanel.removeClass(ajaxClass);
-				data = eval('(' + data + ')');
+/*				data = eval('(' + data + ')');
 				
 				if(data && data.joke)
 				{
-/*	
+	
 //--------------------------------------------------------------------------------------					
 				var newEntry = $("<li style='cursor:pointer;'></li>")
 						.text(data.joke.datePosted);
@@ -190,10 +190,10 @@ eSmile.jokeModel = (function(config){
 					firstJoke = jokeList[currentJoke];
 					if(firstJoke)
 						showJoke(firstJoke);	
-						*/		
+								
 				}
 				else
-					console.log("Kabom, sth just exploded"+ data.msg);
+					console.log("Kabom, sth just exploded"+ data.msg);*/
 		});
 		
 	}
