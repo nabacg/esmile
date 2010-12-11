@@ -1,0 +1,284 @@
+var eSmile = {}
+//to refactor
+eSmile.jokeController = {};
+eSmile.jokeView = {};
+eSmile.username = window.username;
+
+$('#nextButton').click(function () {
+	eSmile.jokeModel.showNext();
+});
+
+$('#prevButton').click(function () {
+	eSmile.jokeModel.showPrev();
+});
+
+$("#subscribeButton").click(function () {
+	var emailField = $("#subscribeInput"); 
+	var email = emailField && emailField.val();
+	if (email && eSmile.subscriber.validEmail(email)) {
+		emailField.removeClass('error');
+		eSmile.subscriber.subscribe(email);
+		emailField.val('');
+	}
+	else
+		emailField.addClass('error');
+});
+
+$("#addJokeButton").click(function(){
+	var jokeValueField = $("#jokeValue");
+	var newJoke = jokeValueField &&  jokeValueField.val();
+	if(newJoke)
+	{	
+		eSmile.jokeModel.addNew(newJoke);
+		jokeValueField.val('');
+	}
+});
+
+
+eSmile.subscriber = (function (config){
+	var subscribePanel = $(config.subscribePanel);
+	if(!config.url)
+		alert('Subscribe URL missing, can\'t work this way!!')
+	var subscribeUser = function (email) {
+		subscribePanel.addClass(config.ajaxLoaderClass);
+		$.getJSON(config.url, 
+			{
+				subscriberEmail: email,
+				tellerUsername: eSmile.username
+			}, 
+			function (data) {
+			if(data && data.success === true)
+				console.log('congrats, your\'re gonne listen to his jokes every day now!');
+			else
+				alert('Kambum, sth just blew up!');
+			subscribePanel.removeClass(config.ajaxLoaderClass);	
+		});
+		console.log('Subscribe post sent..');
+	}
+	
+	return {
+		validEmail: function (email) {
+			var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;  
+			return emailPattern.test(email);
+		},
+		subscribe: function(email){
+			subscribeUser(email);
+		}
+	}
+})({
+	url: '/subscribe/',
+	subscribePanel: '#subscribePanel',
+	ajaxLoaderClass: 'ajax-loader'
+})
+
+//troche mi sie nie podoba ze ten obiekt zajmuje sie wszystkim na raz
+//pobiera dane, iteruje i manipuluje DOM'a
+//moze by to ostatnie przeniesc do osobnego obiektu?
+eSmile.jokeModel = (function(config){
+	//debugger;
+	var jokeList = [],
+	currentJoke = 0,
+	jokeField = $(config.jokeFieldId),
+	dateField = $(config.dateFieldId),
+	jokePanel = $(config.jokePanel),
+	addJokePanel = $(config.addJokePanel),
+	ajaxClass = config.ajaxLoaderClass,
+	historyPanel = $(config.historyPanelId);
+	
+		
+	if(!jokeField)
+		alert('JokeFieldFatalError: JokeField not found under #joke_field id');
+	if(!config.getUrl)
+		alert('JsonURLFatalError: Json GET_URL not found, I can\'t work like this!');
+	if(!config.addUrl)
+		alert('JsonURLFatalError: Json ADD_URL not found, I can\'t work like this!');
+	if(!dateField)
+		alert('Joke date posted field was not found, I can\'t work like this!');
+		
+	var getJokeList = function(){
+		jokePanel.addClass(ajaxClass);
+		$.post(config.getUrl,
+			{jokeTeller: eSmile.username},
+			function(data){
+				jokePanel.removeClass(ajaxClass);
+				data = eval('(' + data + ')');
+				//console.log('I acctualy did get some answer!')
+				if(data && data.length > 0)
+				{
+					//console.log('and it was a good one!')
+					jokeList = data;
+					renderJokeHistory(historyPanel, data);
+					firstJoke = jokeList[currentJoke];
+					if(firstJoke)
+						showJoke(firstJoke);
+				}
+			
+		});
+		
+	}
+	
+	var renderJokeHistory = function(historyPanel, jokeList){
+		$(config.historyPanelId + ' li').remove();
+		var newEntry = null;
+		for(var i = 0; i < jokeList.length; i ++)
+		{
+			newEntry = $("<li style='cursor:pointer;'></li>")
+				.text(jokeList[i].datePosted);
+			if(i == currentJoke)
+				newEntry.addClass(config.highlightClass);
+			jokeList[i].historyEntry = {
+					entry: newEntry,
+					mark: function(){
+						this.entry.addClass(config.highlightClass);
+					},
+					hide: function(){
+						this.entry.removeClass(config.highlightClass);
+					}
+				};
+			
+			newEntry.click((function(i){		
+				return function (e) {
+					var joke = getJoke(i);
+					if(joke)	
+						showPassedJoke(joke, i);
+				}
+			})(i));
+			
+			newEntry.appendTo(historyPanel);
+		}
+	}
+	
+	var addNewJoke = function(joke, jokeField){
+		addJokePanel.addClass(ajaxClass);
+		$.post(config.addUrl, 
+			{jokeValue: joke, jokeTeller: eSmile.username}, 
+			function(data){
+				addJokePanel.removeClass(ajaxClass);
+				data = eval('(' + data + ')');
+				
+				if(data && data.joke)
+				{
+/*	
+//--------------------------------------------------------------------------------------					
+				var newEntry = $("<li style='cursor:pointer;'></li>")
+						.text(data.joke.datePosted);
+					newEntry.addClass(config.highlightClass);
+					data.joke.historyEntry = {
+							entry: newEntry,
+							mark: function(){
+								this.entry.addClass(config.highlightClass);
+							},
+							hide: function(){
+								this.entry.removeClass(config.highlightClass);
+							}
+						};
+					
+					newEntry.click((function(i){		
+						return function (e) {
+							var joke = getJoke(i);
+							if(joke)	
+								showPassedJoke(joke, i);
+						}
+					})(0));
+					
+					newEntry.appendTo(historyPanel);
+
+--------------------------------------------------------------------------------------
+					jokeList.unshift(data.joke);
+					currentJoke = 0;
+					renderJokeHistory(historyPanel, jokeList);
+					firstJoke = jokeList[currentJoke];
+					if(firstJoke)
+						showJoke(firstJoke);	
+						*/		
+				}
+				else
+					console.log("Kabom, sth just exploded"+ data.msg);
+		});
+		
+	}
+	
+	var nextExist = function(index)
+	{
+		return index > -1 && jokeList && jokeList.length > 0 && jokeList.length > index;
+	}
+
+	var getJoke = function(index){
+		if(nextExist(index))
+			return jokeList[index];
+	}
+	
+	var showJoke = function(joke) {
+		jokePanel.fadeTo('fast', 0.3);
+		//jokePanel.fadeOut();
+		jokeField.html(joke.value);
+		dateField.text('Posted on: ' + joke.datePosted);
+		joke.historyEntry.mark();
+		jokePanel.fadeTo('slow', 1);
+		//jokePanel.fadeIn('slow');
+	}
+	
+	var showNextJoke = function(){		
+		var joke = getJoke(currentJoke+1);
+		if(joke)
+		{
+			var previousJoke = getJoke(currentJoke);	
+			previousJoke.historyEntry.hide();
+			showJoke(joke);
+			currentJoke += 1;
+		}
+		console.log(currentJoke);
+	}
+	
+	var showPrevJoke = function(){
+		var joke = getJoke(currentJoke-1);
+		if(joke)
+		{
+			var previousJoke = getJoke(currentJoke);
+			previousJoke.historyEntry.hide();
+			showJoke(joke);
+			currentJoke -= 1;
+		}		
+		console.log(currentJoke);
+	}
+	
+	var showPassedJoke = function(joke, index){
+		if(joke)
+		{
+			var previousJoke = getJoke(currentJoke);
+			previousJoke.historyEntry.hide();
+			showJoke(joke);
+			currentJoke = index;
+		}	
+		console.log(currentJoke);
+	}
+	
+	
+	// start show
+	getJokeList();
+	return {
+		showNext: function(){
+			showNextJoke();
+		},
+		showPrev: function(){
+			showPrevJoke();
+		},
+		addNew: function(jokeValue){
+			addNewJoke(jokeValue);	
+		},
+		showJoke: function(jokeObj, index){
+			showPassedJoke(jokeObj, index);
+		}		
+	}
+	
+})({
+	getUrl: '/jokes/get/',
+	addUrl: '/jokes/add/',
+	jokeFieldId: '#joke_field',
+	dateFieldId: '#joke_date',
+	addJokePanel: "#addJokePanel",
+	historyPanelId: "#historyPanel",
+	jokePanel: "#jokePanel",
+	ajaxLoaderClass: 'ajax-loader',
+	highlightClass: 'highlight'
+});

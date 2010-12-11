@@ -1,0 +1,23 @@
+dJoke (dSmile, dailySmile):
+
+Story:
+ - chce miec mozliwosc latwego dodawania zartow do aplikacji, w duzej ilosci na raz. zarty dodane do mojego konta powinny pozniej zostac wysylane do kazdej osoby, 
+ zapisanej na mojej liscie sluchaczy. Jeden zart kazdego dnia o 9tej rano. Zarty maja byc wysylane w kolejnosci dodania.
+ 
+ DONE- chce miec swoja strone tytulowa w portalu ktora po wejsciu na nia wyswietla moj ostatnio dodany zart, 
+ ale pozwala tez przegladac wszystkie poprzednio dodane w kolejnosci ich dodawania.
+ 
+ - jako nowy user chce miec mozliwosc zapisania sie do listy sluchaczy poprzez wpisanie mojego maila 
+ w textboxie, system musi automatycznie zalozyc mi konto i dopisac mnie do listy sluchaczy wybranego opowiadacza. 
+ od tego czasu powinienem dostawac zawiadomienia o nowo dodanych zartach. Jezeli juz mialem konto system musi to rozpoznac (cookies)
+ i zamiast tworzyc nowe konto, uzyc istniejacego.
+ 
+ 
+ send_mail('test', 'test', 'yourdailyjoke@esmile.gmc.megiteam.pl', ['grigoriij@o2.pl', 'gmdc.inc@gmail.com'], False)
+
+ 
+ Defects( chyba ponizsze jednak dziala ale warto sprawdzic! A i przypominam ze ten system mial upraszczac zycie a nie na odwrot..
+ dlaczego to jest takie skomplikowane??)
+  - dodawanie joke'ow do userow innych niz Admin nie dziala (nie tworza sie subscriberzy, chyba to pominelismy trzeba ich recznie dodawac, 
+  a to ze ich nei ma w chwili dodawania joke to znaczy ze nie ma tez ReceivedJokes..)
+  - dodawanie zartow do innych userow ich nie wyswietla.. pytanie dlaczego.

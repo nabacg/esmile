@@ -1,0 +1,22 @@
+Todo:
+ DONE - ladne formatowanie maili, django-templates?end line'y, taby, ladna stopka z linkiem do aplikacji
+ DONE - zapisywac zarty z formatowaniem, end line'y, taby, ladna stopka z linkiem do aplikacji
+ DONE - ajaxowe koleczka loadowania
+ DONE - jakies animacje na przewijaniu listy,( podswietlanie pola przy zmianie, podswietlanie buttonow przy kliknieciu, etc )ladna lista dat po prawej stronie z podswietlonym ostatnio 
+ DONE zaznaczonym zartem
+ DONE - przeczyscic template (usunac smieci, zmiejszyc baner wzgledem glownego panelu), zmienic template?
+ DONE - dodawanie zartow tylko gdy jestes zalogowany
+ ------------------------------------------------------------------------------ przed releasem
+ - przydalby sie tez login screen
+ - algorytm wysylania, przyspieszyc znajdywanie list do wysylki (zmiana struktur danych? te sa niewygodne..)
+ DONE - kolejkowanie zartow, przeciez tylko jeden ma byc na raz wysylany a nie wszystkie nie wyslane jeszcze
+ DONE - ustawiania flagi send nie dziala
+ DONE - dodawanie nowych zartow, 
+ - dodawanie zartow w ilosci hurtowej, bulk_add
+ DONE - wysylanie maili ze skryptu zewnetrzenego
+ DONE - podpiecie skryptu do CRON'a
+ 
+ BUGS:
+ - dodawanie pierwszego zartu nie wyswietla go na stronie, w ogole czasami zarty sa cofniete o 1 wzgledem tego ktory
+ powinien byc wyswietlany.. Zbadac poczatkowy indeks = -1 oraz ten dziwny jokeList = {}..
+ 

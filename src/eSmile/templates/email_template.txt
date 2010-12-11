@@ -1,0 +1,15 @@
+{{ user_name }} joke for today:
+
+
+
+{{ joke_text }} 
+
+
+
+
+
+			posted on {{ posted_on }} 
+
+------------------------------------------------------------------
+
+This joke was delivered to you using {{esmile_url}}

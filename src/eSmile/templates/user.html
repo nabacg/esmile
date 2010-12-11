@@ -1,0 +1,42 @@
+{% extends "index.html" %}
+
+{% block sidebar %}       
+
+		<div class="joke-panel">
+			<h3>Jokes posted by {{username}}</h3>
+			<ul id="historyPanel"></ul>	
+		</div>		
+		<div class="joke-panel">
+			<div id="subscribePanel">
+				<h3>Receive {{username}}'s joke daily</h3>
+				<input type="text" id="subscribeInput"/>
+				<input type="button" id="subscribeButton" class="button" value="Subscribe"/>
+			</div>
+		</div>	
+{% endblock %}
+
+{% block content %}
+		<div id="jokePanel" class="joke-panel">
+	        <h3>{{username}}'s newest joke</h3>	        
+			<p id='joke_field' class="joke-field"></p>        
+			<p id="joke_date" class="joke-date">Posted on: </p>
+			<div>
+				<input class="button" type="button" value="Prev" id="prevButton"/>
+				<input class="button" type="button" value="Next" id="nextButton"/>
+			</div>
+		</div>
+
+			{% if logged %}
+				<div id="addJokePanel" class="joke-panel">
+					<h3>Add new joke:</h3>
+					<textarea id="jokeValue"></textarea>
+					<input type="button" class="button" value="Submit" id="addJokeButton" />
+				</div>
+			{% endif %}
+		<script>
+			//wybacz dziadku Crockfordzie za to linkowanie przez globalne pole
+			window.username = '{{username}}';
+		</script>
+		<script src="/site_media/js/eSmile.main.js"></script>
+		
+{% endblock %}

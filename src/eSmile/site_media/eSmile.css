@@ -1,0 +1,42 @@
+
+.joke-panel {
+
+	margin: 10px 15px; 
+	padding: 10px;
+	background: transparent;
+	border: 1px solid #211E20;  
+	min-height: 200px;	
+}
+
+.joke-panel div {
+	text-align: right;
+}
+
+.joke-date {
+	text-align: right;
+	font-style:italic;
+	font-size: smaller;
+}
+
+.joke-field {
+	min-height: 200px;	
+}
+ 
+.error { float: none; color: red; padding-left: .5em; vertical-align: top; }
+
+.ajax-loader {
+	background: transparent url(al3.gif) no-repeat  center center;
+	background-color: #6E6E6E;
+	z-index: 10;
+	position:relative;
+	
+}
+
+.highlight {
+	color: #FFFFFF;
+	font-style: bold;
+}
+
+#sidebar ul li {
+	 list-style: none;
+}
