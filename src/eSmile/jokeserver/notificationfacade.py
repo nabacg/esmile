@@ -12,7 +12,7 @@ def send_joke(joke, receiver_list):
  
 # tutaj trzeba zaprzadz django-template'y w towrzenie ladnego maila
 def get_email_content(joke):
-     new_email = Template("{{ user_name }} joke for today:\n\n {{ joke_text }} \n\n\n \t\t\t posted on {{ posted_on }} \n\n\n------------------------------------------------------------------------------------------------------\n\n \t\t\t This joke was delivered to you using {{esmile_url}}")
+     new_email = Template("{{ user_name }}'s daily joke:\n\n {{ joke_text }} \n\n\n \t\t\t posted on {{ posted_on }} \n\n\n------------------------------------------------------------------------------------------------------\n\n \t\t\t This joke was delivered to you using {{esmile_url}}")
      context = Context({
                         "user_name": joke.owner.username,
                         "joke_text": joke.value.replace('<br/>', '\n'),
@@ -32,6 +32,14 @@ def queue_joke(joke_queue, joke, receivers):
     teller = joke.owner.username
     if joke_queue.get(teller) == None:
         joke_queue[teller] = { "joke": joke, "receivers": receivers }
+        
+
+def set_joke_as_sent(joke):
+    #ustaw joke sent na true
+    if joke.sent == False:
+        joke.sent = True
+        joke.save()
+        print "Joke id: %d, value %s was sent." % (joke.id, joke.value)
     
 def send_daily_jokes():
     joke_teller_queue = {} # { "joke_teller_name": {"joke": joke_object:,  "receiver_list": list}
@@ -43,7 +51,9 @@ def send_daily_jokes():
     for teller in joke_teller_queue.keys():
         msg = joke_teller_queue[teller]
         try:
-            status = send_joke(msg['joke'], msg['receivers'])          
+            joke_to_send = msg['joke']
+            status = send_joke(joke_to_send, msg['receivers'])     
+            set_joke_as_sent(joke_to_send)     
         except Exception:
             status = -1
             
@@ -51,5 +61,5 @@ def send_daily_jokes():
             for rj in ReceivedJoke.objects.filter(joke = msg['joke']): # to nie dziala
                 rj.send = True
                 rj.save()
-                print "We did save some RJ's"
+                print "Joke id %d sent to %s" % (rj.joke.id, rj.subscriber.listener.email)
             

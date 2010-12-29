@@ -8,6 +8,7 @@ class Joke(models.Model):
     owner = models.ForeignKey(User, related_name = 'jokes')
     date_created = models.DateTimeField(auto_now_add = True)
     date_last_update = models.DateTimeField(auto_now=True)
+    sent = models.BooleanField(default=False)
     
     def __unicode__(self):
         return "%s: %s" % (self.owner.username, self.value)
@@ -36,10 +37,14 @@ class ReceivedJoke(models.Model):
     joke = models.ForeignKey(Joke)
     send = models.BooleanField(default = False)
     like_id = models.BooleanField()
-    date_send = models.DateTimeField(auto_now_add = True)
+    date_send = models.DateTimeField(auto_now = True)
     
     def __unicode__(self):
-        return '%s will be send to %s'%(self.joke.value, self.subscriber.receiver_email)
+        if self.send:
+            msg = ' received '
+        else:
+            msg = ' will receive '        
+        return '%s %s %s'%(self.subscriber.receiver_email, msg, self.joke.value[0:35])
     
     def create_received_joke(sender, instance, created, **kwargs):
         if created:

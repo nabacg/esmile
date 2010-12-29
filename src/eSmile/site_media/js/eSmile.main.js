@@ -12,33 +12,13 @@ $('#prevButton').click(function () {
 	eSmile.jokeModel.showPrev();
 });
 
-$("#subscribeButton").click(function () {
-	var emailField = $("#subscribeInput"); 
-	var email = emailField && emailField.val();
-	if (email && eSmile.subscriber.validEmail(email)) {
-		emailField.removeClass('error');
-		eSmile.subscriber.subscribe(email);
-		emailField.val('');
-	}
-	else
-		emailField.addClass('error');
-});
-
-$("#addJokeButton").click(function(){
-	var jokeValueField = $("#jokeValue");
-	var newJoke = jokeValueField &&  jokeValueField.val();
-	if(newJoke)
-	{	
-		eSmile.jokeModel.addNew(newJoke);
-		jokeValueField.val('');
-	}
-});
-
 
 eSmile.subscriber = (function (config){
-	var subscribePanel = $(config.subscribePanel);
+	var subscribePanel = $(config.subscribePanel),
+	innerPanel = $(config.subscribeInnerPanelId);
 	if(!config.url)
-		alert('Subscribe URL missing, can\'t work this way!!')
+		alert('Subscribe URL missing, can\'t work this way!!');
+		
 	var subscribeUser = function (email) {
 		subscribePanel.addClass(config.ajaxLoaderClass);
 		$.getJSON(config.url, 
@@ -52,9 +32,24 @@ eSmile.subscriber = (function (config){
 			else
 				alert('Kambum, sth just blew up!');
 			subscribePanel.removeClass(config.ajaxLoaderClass);	
+			innerPanel.css('visibility', '');
 		});
 		console.log('Subscribe post sent..');
 	}
+	
+	var subcribeHandler = function () {
+		var emailField = $("#subscribeInput"); 
+		var email = emailField && emailField.val();
+		if (email && eSmile.subscriber.validEmail(email)) {
+			emailField.removeClass('error');
+			//emailField.hide();
+			innerPanel.css('visibility', 'hidden');
+			subscribeUser(email);
+			emailField.val('');
+		}
+		else
+			emailField.addClass('error');
+	};
 	
 	return {
 		validEmail: function (email) {
@@ -63,13 +58,17 @@ eSmile.subscriber = (function (config){
 		},
 		subscribe: function(email){
 			subscribeUser(email);
-		}
+		},
+		onSubscribe: subcribeHandler
 	}
 })({
 	url: '/subscribe/',
 	subscribePanel: '#subscribePanel',
+	subscribeInnerPanelId: '#innerSubscribePannel',
 	ajaxLoaderClass: 'ajax-loader'
-})
+});
+
+
 
 //troche mi sie nie podoba ze ten obiekt zajmuje sie wszystkim na raz
 //pobiera dane, iteruje i manipuluje DOM'a
@@ -83,7 +82,10 @@ eSmile.jokeModel = (function(config){
 	jokePanel = $(config.jokePanel),
 	addJokePanel = $(config.addJokePanel),
 	ajaxClass = config.ajaxLoaderClass,
-	historyPanel = $(config.historyPanelId);
+	historyPanel = $(config.historyPanelId),
+	innerAddJokePanel = $(config.innerAddJokePanelId),
+	innerJokePanel = $(config.innerJokePanelId),
+	newJokeValue = $(config.jokeInputId);
 	
 		
 	if(!jokeField)
@@ -97,10 +99,12 @@ eSmile.jokeModel = (function(config){
 		
 	var getJokeList = function(){
 		jokePanel.addClass(ajaxClass);
+		innerJokePanel.css('visibility', 'hidden');
 		$.post(config.getUrl,
 			{jokeTeller: eSmile.username},
 			function(data){
 				jokePanel.removeClass(ajaxClass);
+				innerJokePanel.css('visibility', '');
 				data = eval('(' + data + ')');
 				//console.log('I acctualy did get some answer!')
 				if(data && data.length > 0)
@@ -148,12 +152,13 @@ eSmile.jokeModel = (function(config){
 		}
 	}
 	
-	var addNewJoke = function(joke, jokeField){
+	var addNewJoke = function (joke) {
 		addJokePanel.addClass(ajaxClass);
 		$.post(config.addUrl, 
 			{jokeValue: joke, jokeTeller: eSmile.username}, 
 			function(data){
 				addJokePanel.removeClass(ajaxClass);
+				innerAddJokePanel.css("visibility", "");
 /*				data = eval('(' + data + ')');
 				
 				if(data && data.joke)
@@ -198,6 +203,17 @@ eSmile.jokeModel = (function(config){
 		
 	}
 	
+	var addJokeHandler = function(){
+		var newJoke = newJokeValue &&  newJokeValue.val();
+		if(newJoke)
+		{	
+			innerAddJokePanel.css("visibility", "hidden");
+			addNewJoke(newJoke);
+			newJokeValue.val('');
+		}
+	};
+
+	
 	var nextExist = function(index)
 	{
 		return index > -1 && jokeList && jokeList.length > 0 && jokeList.length > index;
@@ -209,7 +225,7 @@ eSmile.jokeModel = (function(config){
 	}
 	
 	var showJoke = function(joke) {
-		jokePanel.fadeTo('fast', 0.3);
+		jokePanel.stop().fadeTo('fast', 0.3);
 		//jokePanel.fadeOut();
 		jokeField.html(joke.value);
 		dateField.text('Posted on: ' + joke.datePosted);
@@ -268,7 +284,8 @@ eSmile.jokeModel = (function(config){
 		},
 		showJoke: function(jokeObj, index){
 			showPassedJoke(jokeObj, index);
-		}		
+		},
+		onAddJoke: addJokeHandler		
 	}
 	
 })({
@@ -277,8 +294,18 @@ eSmile.jokeModel = (function(config){
 	jokeFieldId: '#joke_field',
 	dateFieldId: '#joke_date',
 	addJokePanel: "#addJokePanel",
+	innerAddJokePanelId: '#innerAddJokePanel',
+	innerJokePanelId: '#innerJokePanel',
 	historyPanelId: "#historyPanel",
+	jokeInputId: "#jokeValue",
 	jokePanel: "#jokePanel",
 	ajaxLoaderClass: 'ajax-loader',
 	highlightClass: 'highlight'
 });
+
+
+//command routing (maybe go for a controller? )
+// ADD NEW JOKE event to handler mapping
+$("#addJokeButton").click( eSmile.jokeModel.onAddJoke);
+//SUBSCRIBE event to handler mapping
+$("#subscribeButton").click(eSmile.subscriber.onSubscribe);

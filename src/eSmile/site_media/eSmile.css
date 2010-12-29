@@ -1,6 +1,5 @@
 
 .joke-panel {
-
 	margin: 10px 15px; 
 	padding: 10px;
 	background: transparent;
@@ -8,7 +7,7 @@
 	min-height: 200px;	
 }
 
-.joke-panel div {
+.joke-panel div div{
 	text-align: right;
 }
 
@@ -39,4 +38,8 @@
 
 #sidebar ul li {
 	 list-style: none;
+}
+
+.ajax-hide {
+	display: hidden;
 }
