@@ -7,8 +7,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
 def index(request):
-    return render_to_response('index.html', 
-                              {'msg': 'Hello World Darling :)'})
+    return render_to_response('index.html')
 
 
 def user_main(request, username):
@@ -26,4 +25,4 @@ def send_mail(request):
         print receiver_list
         notificationfacade.send_joke(joke, receiver_list)
     
-    return HttpResponse("Alles Gut")
+    return HttpResponse("")
