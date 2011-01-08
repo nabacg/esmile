@@ -29,17 +29,10 @@ DATABASES = {
 #    }
 }
 
-
-#EMAIL_USE_TLS = True
-#EMAIL_HOST = 'poczta.o2.pl'
-#EMAIL_HOST_USER = 'grigoriij'
-#EMAIL_HOST_PASSWORD = 'szczek'
-#EMAIL_PORT = 465
-
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'nabacg@gmail.com'
-EMAIL_HOST_PASSWORD = 'szcz*8ek'
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = "nabacg@gmail.com"
 
