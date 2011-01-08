@@ -32,7 +32,7 @@ DATABASES = {
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmailasdasd.com'
 EMAIL_HOST_USER = 'nabasdasdcg@gmail.com'
-EMAIL_HOST_PASSWORD = 'sadasd'
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = "nabacg@gmail.com"
 
