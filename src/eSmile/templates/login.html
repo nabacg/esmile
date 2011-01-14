@@ -1,0 +1,47 @@
+{% extends "index.html" %}
+
+{% block content %}
+    {% if errors %}
+		
+        	<p  style="color:red;">{{ errors }}</p>
+    {% endif %}
+
+    <form method="post" action="{% url eSmile.main.views.login_user %}">
+        {% csrf_token %}
+    <table class="login-form">
+	    <tr>
+	        <td>{{ form.username.label_tag }}</td>
+	        <td>{{ form.username }}</td>
+			<td><input type="submit" value="login" class="button"/></td>
+	    </tr>
+	    <tr>
+	        <td>{{ form.password.label_tag }}</td>
+	        <td>{{ form.password }}</td>
+			<td></td>
+	    </tr>
+    </table>
+    </form>
+
+{% endblock %}
+
+{% block sidebar %}
+				
+			<h3>Most active</h3>			
+			<ul class="sidemenu">
+				<li><a href="">Tutaj</a></li>
+				<li><a href="">moze</a></li>
+				<li><a href="">lista</a></li>
+				<li><a href="">najaktywniejszych</a> </li>
+				<li><a href="">zarto-opowiadaczy</a></li>
+			</ul>	
+				
+				
+			<h3>Latest jokes</h3>
+			<ul class="sidemenu">
+				<li><a title="">a tutaj</a></li>
+				<li><a href="" title="">moze</a></li>
+				<li><a href="" title="">lista</a></li>
+				<li><a href="" title="">najlepszych</a></li>
+				<li><a href="" title="">zartow</a></li>
+			</ul>
+{% endblock %}
