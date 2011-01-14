@@ -26,6 +26,9 @@ def set_un_received_jokes_for_new_subscriber(teller, subscriber):
 def get_or_create_subscriber(subscriber_email):
     matchin_users = User.objects.filter(email = subscriber_email)
     if len(matchin_users) == 0:
-        return User.objects.create(username = subscriber_email, email = subscriber_email, password = subscriber_email)
+        new_user = User(username = subscriber_email, email = subscriber_email)
+        new_user.set_password(subscriber_email)
+        new_user.save()
+        return new_user
     else:
         return matchin_users[0]

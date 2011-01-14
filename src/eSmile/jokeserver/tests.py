@@ -32,7 +32,7 @@ def setTestData(test_case):
     Subscriber.objects.create(teller=test_case.teller, listener=test_case.first_listener)
     Subscriber.objects.create(teller=test_case.teller, listener=test_case.second_listener)
     time.sleep(0.1)
-    Joke.objects.create(owner=test_case.teller, value=JOKE_1)
+    Joke.objects.create(owner=test_case.teller, value=JOKE_1, sent = True)
     time.sleep(0.1)
     Joke.objects.create(owner=test_case.teller, value=JOKE_2)
     time.sleep(0.1)
@@ -102,12 +102,12 @@ class JokeFacadeTest(TestCase):
                 self.assertTrue(last_date > joke.date_created, '%s should be after %s'%(str(last_date), str(joke.date_created)))   
             last_date = joke.date_created
     
-    def test_create_new_joke(self):
-        joke_text = JOKE_4
-        new_joke = jokefacade.add_new_joke(self.teller.username, joke_text)
-        self.assertNotEqual(None, new_joke, "New joke not created properly")
-        new_joke_list = jokefacade.get_teller_jokes(self.teller.username)
-        self.assertTrue(new_joke in new_joke_list, "New joke not added to teller list")
+#    def test_create_new_joke(self):
+#        joke_text = JOKE_4
+#        new_joke = jokefacade.add_new_joke(self.teller.username, joke_text)
+#        self.assertNotEqual(None, new_joke, "New joke not created properly")
+#        new_joke_list = jokefacade.get_teller_jokes(self.teller.username)
+#        self.assertTrue(new_joke in new_joke_list, "New joke not added to teller list")
  
 class SubscriberFacadeTest(TestCase):
     
@@ -252,7 +252,7 @@ class JokeServerTest(TestCase):
             self.assertNotEqual('', joke['value'], "Joke value can't be empty")
             
     def test_subscribe_new_listener(self):
-        response = self.client.get(reverse('eSmile.jokeserver.views.subscribe'), data = {"subscriberEmail": SUBSCRIBER_EMAIL, 'tellerUsername': TELLER_NAME})
+        response = self.client.get(reverse('eSmile.main.views.subscribe'), data = {"subscriberEmail": SUBSCRIBER_EMAIL, 'tellerUsername': TELLER_NAME})
         self.assertNotEqual(None, response, "No response returned")
         response_code = 200
         self.assertEqual(response_code, response.status_code, "Wrong Http status code returned, expected %s, found %s"% (response_code, response.status_code))
