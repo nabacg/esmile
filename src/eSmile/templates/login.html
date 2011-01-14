@@ -6,7 +6,7 @@
         	<p  style="color:red;">{{ errors }}</p>
     {% endif %}
 
-    <form method="post" action="{% url eSmile.main.views.login_user %}">
+    <form method="post" action="{% url login %}">
         {% csrf_token %}
     <table class="login-form">
 	    <tr>

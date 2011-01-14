@@ -4,10 +4,10 @@
 		<div class="side-panel">
 			{% if not logged %}
 				<h3>Hello stranger </h3>
-				<a href="{% url eSmile.main.views.login_user %}">Login</a>
+				<a href="{% url login %}">Login</a>
 			{% else %}
 				<h3>Hello {{username}} </h3>
-				<a href="{% url eSmile.main.views.logout_user %}">Logout</a>
+				<a href="{% url logout %}">Logout</a>
 				
 			{% endif %}
 		</div>

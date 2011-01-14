@@ -8,17 +8,16 @@ urlpatterns = patterns('',
     #MAIN app handling
     
     #joke server services ;)
-    (r'jokes/add/$', 'eSmile.jokeserver.views.add'),
-    (r'jokes/get/$', 'eSmile.jokeserver.views.get'), 
+    url(r'jokes/add/$', 'eSmile.jokeserver.views.add', name='add_joke'),
+    url(r'jokes/get/$', 'eSmile.jokeserver.views.get', name='get_jokes'), 
 
     #main pages part
-    (r'subscribe/$', 'eSmile.main.views.subscribe'),
-    (r'(?P<username>.*)/last/joke', 'eSmile.main.views.user_main'),
-    (r'send/mail/$', 'eSmile.main.views.send_mail'),
+    url(r'subscribe/$', 'eSmile.main.views.subscribe', name='subscribe_listener'),
+    url(r'(?P<username>.*)/last/joke', 'eSmile.main.views.user_main', name='user_page'),
     
     #LOGIN and LOGOUT
-    (r'user/logout/$', 'eSmile.main.views.logout_user'),
-    (r'user/login/$', 'eSmile.main.views.login_user'),
+    url(r'user/logout/$', 'eSmile.main.views.logout_user', name='logout'),
+    url(r'user/login/$', 'eSmile.main.views.login_user', name='login'),
     
     #(r'^sign/$', 'eSmile.main.views.sign_up'),
     
