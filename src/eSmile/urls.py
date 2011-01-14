@@ -5,17 +5,23 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Example:
+    #MAIN app handling
+    
     #joke server services ;)
-    (r'subscribe/$', 'eSmile.jokeserver.views.subscribe'),
     (r'jokes/add/$', 'eSmile.jokeserver.views.add'),
-    (r'jokes/get/$', 'eSmile.jokeserver.views.get'), # to sie musi nazywac /jokes/get/ sorry
+    (r'jokes/get/$', 'eSmile.jokeserver.views.get'), 
 
     #main pages part
-#    (r'main/$', 'eSmile.main.views.index'),
+    (r'subscribe/$', 'eSmile.main.views.subscribe'),
     (r'(?P<username>.*)/last/joke', 'eSmile.main.views.user_main'),
     (r'send/mail/$', 'eSmile.main.views.send_mail'),
     
-
+    #LOGIN and LOGOUT
+    (r'user/logout/$', 'eSmile.main.views.logout_user'),
+    (r'user/login/$', 'eSmile.main.views.login_user'),
+    
+    #(r'^sign/$', 'eSmile.main.views.sign_up'),
+    
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

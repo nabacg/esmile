@@ -1,7 +1,16 @@
 {% extends "index.html" %}
 
 {% block sidebar %}       
-
+		<div class="side-panel">
+			{% if not logged %}
+				<h3>Hello stranger </h3>
+				<a href="{% url eSmile.main.views.login_user %}">Login</a>
+			{% else %}
+				<h3>Hello {{username}} </h3>
+				<a href="{% url eSmile.main.views.logout_user %}">Logout</a>
+				
+			{% endif %}
+		</div>
 		<div class="joke-panel">
 			<h3>Jokes posted by {{username}}</h3>
 			<ul id="historyPanel"></ul>	

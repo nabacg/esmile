@@ -7,6 +7,13 @@
 	min-height: 200px;	
 }
 
+.side-panel {
+	margin: 10px 15px; 
+	padding: 10px;
+	background: transparent;
+	border: 1px solid #211E20;
+}
+
 .joke-panel div div{
 	text-align: right;
 }
@@ -42,4 +49,22 @@
 
 .ajax-hide {
 	display: hidden;
+}
+
+.login-form {
+	border-style:hidden;
+}
+
+.login-form tr td {
+	border-style:hidden;
+}
+
+.login-form .button {
+	width: 150px;
+	font: bold 1em Arial, Tahoma, Sans-serif;
+    margin: 0;
+    padding: .25em .3em;
+
+    border: 2px solid #211E20;
+	
 }

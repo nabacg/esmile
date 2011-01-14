@@ -4,7 +4,13 @@ from django.shortcuts import render_to_response
 from eSmile.jokeserver import notificationfacade
 from eSmile.jokeserver.models import Joke
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
+from django.contrib.auth import logout
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.forms import AuthenticationForm
+from django.template import RequestContext
+from eSmile.jokeserver import subscriberfacade
+from django.utils import simplejson
+from django.contrib.auth import login, authenticate
 
 def index(request):
     return render_to_response('index.html')
@@ -26,3 +32,39 @@ def send_mail(request):
         notificationfacade.send_joke(joke, receiver_list)
     
     return HttpResponse("")
+
+def subscribe(request):
+    if request.method == "POST":
+        params =  request.POST
+    else:
+        params =  request.GET
+    teller_username = params['tellerUsername']
+    subscriber_email = params['subscriberEmail']    
+    try:
+        subscriberfacade.subscribe(teller = teller_username, subscriber = subscriber_email)
+        return HttpResponse(simplejson.dumps({ "success": True }));
+    except Exception as e:
+        return HttpResponse(simplejson.dumps({"success": False, "errormsg": e}))
+
+def logout_user(request):
+    logout(request)
+    return render_to_response('login.html', {"form" : AuthenticationForm()}, context_instance=RequestContext(request))
+
+def login_user(request):
+    error_msg = None
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect('eSmile.main.views.user_main', username = user.username)
+        else:
+            error_msg = "Wrong login or password"
+    #jeze;o nie udalo sie zalogowac albo dopiero wchodzimy na strone logowania to zwracamy pusty formuarz
+    return render_to_response('login.html', {"form" : AuthenticationForm(), "form.errors": error_msg}, context_instance=RequestContext(request)) 
+            
+
+    
+
