@@ -102,12 +102,12 @@ class JokeFacadeTest(TestCase):
                 self.assertTrue(last_date > joke.date_created, '%s should be after %s'%(str(last_date), str(joke.date_created)))   
             last_date = joke.date_created
     
-#    def test_create_new_joke(self):
-#        joke_text = JOKE_4
-#        new_joke = jokefacade.add_new_joke(self.teller.username, joke_text)
-#        self.assertNotEqual(None, new_joke, "New joke not created properly")
-#        new_joke_list = jokefacade.get_teller_jokes(self.teller.username)
-#        self.assertTrue(new_joke in new_joke_list, "New joke not added to teller list")
+    def test_create_new_joke(self):
+        joke_text = JOKE_4
+        new_joke = jokefacade.add_new_joke(self.teller.username, joke_text)
+        self.assertNotEqual(None, new_joke, "New joke not created properly")
+        new_joke_list = jokefacade.get_teller_jokes(self.teller.username, only_sent=False)
+        self.assertTrue(new_joke in new_joke_list, "New joke not added to teller list")
  
 class SubscriberFacadeTest(TestCase):
     
@@ -245,7 +245,7 @@ class JokeServerTest(TestCase):
         self.assertEqual(expected_status, response.status_code, "Wrong Http response status code, %d expected"%expected_status)
         content = response.content
         self.assertNotEqual(None, content, "Returned Json response was NONE!!")
-        json_array = eval(content)
+        json_array = eval(content.replace('true', 'True').replace('false', 'False'))
 #        print 'JSON ARRAY', json_array
         self.assertNotEqual(0, len(json_array), "Returned Json list is empty!!")
         for joke in json_array:
@@ -285,7 +285,7 @@ class JokeServerTest(TestCase):
         self.assertNotEqual(None, response_content, 'Returned response content is empty!')
         self.assertNotEqual(0, len(response_content), 'Returned response content is empty!')
 #        print response.content
-        json_response = eval(response_content.replace('true', 'True'))
+        json_response = eval(response_content.replace('true', 'True').replace('false', 'False'))
         
         self.assertTrue(json_response.get('success') != None, "Improperly constructed json object, success field missing")
         self.assertTrue(json_response.get('success'), "Json object success field should state True, %s found!" % str(json_response['success']))

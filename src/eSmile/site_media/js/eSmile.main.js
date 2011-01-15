@@ -123,11 +123,15 @@ eSmile.jokeModel = (function(config){
 	
 	var renderJokeHistory = function(historyPanel, jokeList){
 		$(config.historyPanelId + ' li').remove();
-		var newEntry = null;
+		var newEntry = null, 
+		entryText = '';
 		for(var i = 0; i < jokeList.length; i ++)
 		{
+			entryText = jokeList[i].datePosted;
+			if(jokeList[i].hasOwnProperty('sent') && jokeList[i].sent === false)
+				entryText = ' not sent ' + entryText;
 			newEntry = $("<li style='cursor:pointer;'></li>")
-				.text(jokeList[i].datePosted);
+				.text(entryText);
 			if(i == currentJoke)
 				newEntry.addClass(config.highlightClass);
 			jokeList[i].historyEntry = {

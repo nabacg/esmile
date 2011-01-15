@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpRequest
 from django.utils import simplejson
 from eSmile.jokeserver import jokefacade
 
-extract_joke = lambda j: { "value": j.value, "datePosted": j.date_created.strftime('%Y-%m-%d %H:%M:%S') }
+extract_joke = lambda j: { "value": j.value, "datePosted": j.date_created.strftime('%Y-%m-%d %H:%M:%S'), "sent": j.sent }
 
 def get(request):
     if request.method == "POST":
@@ -11,10 +11,11 @@ def get(request):
     else:
         params =  request.GET
     teller_username = params["jokeTeller"] 
+    is_owner = request.user.is_authenticated() and request.user.username == teller_username
     return HttpResponse(
             simplejson.dumps( 
                 map(  extract_joke, 
-                     jokefacade.get_teller_jokes(teller_username))))
+                     jokefacade.get_teller_jokes(teller_username, only_sent = not is_owner))))
     
 def add(request):
     if request.method == "POST":

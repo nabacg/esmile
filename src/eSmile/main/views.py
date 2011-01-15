@@ -24,6 +24,11 @@ def user_main(request, username):
     user = get_object_or_404(User, username=username)
     return render_to_response('user.html', {"username": user.username, "logged": logged})
 
+def teller_main(request, user):
+    if not hasattr(user, 'username'): # sie znaczy przekazano nie usera a username
+        user = r = get_object_or_404(User, username=user)
+    return render_to_response('teller.html', {"username": user.username, "logged": True})
+
 def send_mail(request):
     for joke in Joke.objects.all().order_by('date_created'):#[0]#(value = JOKE_3)
         teller = joke.owner
@@ -59,7 +64,7 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return redirect('eSmile.main.views.user_main', username = user.username)
+                return teller_main(request, user = user)
         else:
             error_msg = "Wrong login or password"
     #jeze;o nie udalo sie zalogowac albo dopiero wchodzimy na strone logowania to zwracamy pusty formuarz
