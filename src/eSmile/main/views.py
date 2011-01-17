@@ -50,7 +50,29 @@ def subscribe(request):
         return HttpResponse(simplejson.dumps({ "success": True }));
     except Exception as e:
         return HttpResponse(simplejson.dumps({"success": False, "errormsg": e}))
-
+    
+def unsubscribe(request):    
+    if request.method == "POST":
+        params =  request.POST
+    else:
+        params =  request.GET
+    teller_username = params['tellerUsername']
+    subscriber_username = params['subscriberUsername'] 
+    try:
+        subscriberfacade.unsubscribe(teller = teller_username, listener_username=subscriber_username)
+        return HttpResponse(simplejson.dumps({ "success": True }));
+    except Exception as e:
+        return HttpResponse(simplejson.dumps({"success": False, "errormsg": e}))
+    
+def get_subscribers(request):
+    if request.method == "POST":
+        params =  request.POST
+    else:
+        params =  request.GET
+    teller_username = params['tellerUsername']
+    return HttpResponse(simplejson.dumps({ "success": True, 
+                                          "data": map(lambda u: u.username, subscriberfacade.get_subscribers(teller_username))}))
+    
 def logout_user(request):
     logout(request)
     return render_to_response('login.html', {"form" : AuthenticationForm()}, context_instance=RequestContext(request))

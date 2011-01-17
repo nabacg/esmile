@@ -12,7 +12,9 @@ urlpatterns = patterns('',
     url(r'jokes/get/$', 'eSmile.jokeserver.views.get', name='get_jokes'), 
 
     #main pages part
-    url(r'subscribe/$', 'eSmile.main.views.subscribe', name='subscribe_listener'),
+    url(r'unsubscribe/$', 'eSmile.main.views.unsubscribe', name='unsubscriber'),
+    url(r'subscribers/$', 'eSmile.main.views.get_subscribers', name='get_subscribers'),
+    url(r'subscribe/$', 'eSmile.main.views.subscribe', name='subscribe_listener'),  #<= kolejnosc subscribere' methods ma znaczenie
     url(r'(?P<username>.*)/last/joke', 'eSmile.main.views.user_main', name='user_page'),
     url(r'(?P<username>.*)/tells/joke', 'eSmile.main.views.teller_main', name='teller_page'),
     

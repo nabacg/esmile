@@ -6,6 +6,15 @@ def get_subscribers(teller):
     subscribtions = teller.joke_listeners.all()
     return map(lambda s: s.listener, subscribtions)
 
+def unsubscribe(teller, listener_username): 
+    if not hasattr(teller, 'username'):
+        teller = User.objects.get(username = teller)
+        
+    if hasattr(listener_username, 'username'):
+        listener_username = listener.username
+    teller.joke_listeners.filter(listener__username = listener_username).delete()
+
+
 def subscribe(teller, subscriber):
     if not hasattr(teller, 'username'):
         teller = User.objects.get(username = teller)
