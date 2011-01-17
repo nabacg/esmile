@@ -1,3 +1,5 @@
+//$("#sidebar").css('width', "30em");
+
 eSmile.subscriber = (function (config){
 	var subscribePanel = $(config.subscribePanel),
 	innerPanel = $(config.subscribeInnerPanelId),
@@ -47,7 +49,6 @@ eSmile.subscriber = (function (config){
 				if(response.success)
 					console.log('You\'re no longer listening to his jokes');
 			});
-			//getSubscribersList();
 	}
 	
 	var getSubscribersList = function(tellerName) {
@@ -62,7 +63,7 @@ eSmile.subscriber = (function (config){
 				for(var i = 0; i < response.data.length; i++){
 					listenerName = response.data[i];
 					newEntry = $("<li ></li>").text(listenerName);	
-					removeButton = $("<p style='cursor:pointer;'></>").text('Remove?');
+					removeButton = $("<p style='cursor:pointer;display:inline;'></p>").text('Remove?');
 					removeButton.click((function(listenerName){
 							return function(e){
 								$(e.target).parent().remove();

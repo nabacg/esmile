@@ -18,6 +18,11 @@
 	text-align: right;
 }
 
+.joke-panel div div ul{
+	text-align: left;
+}
+
+
 .joke-date {
 	text-align: right;
 	font-style:italic;
