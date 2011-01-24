@@ -1,4 +1,4 @@
-from eSmile.jokeserver.models import *
+from jokeserver.models import *
 
 def get_teller_jokes(teller_name, only_sent = True):
     joke_set = Joke.objects.all()#.filter(receivedjoke__send=True).distinct()

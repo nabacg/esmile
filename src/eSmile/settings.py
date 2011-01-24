@@ -109,8 +109,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    'eSmile.jokeserver',
-    'eSmile.main',
+    'jokeserver',
+    'main',
      'django.contrib.admin',
      'django_extensions'
     # Uncomment the next line to enable admin documentation:

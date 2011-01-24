@@ -1,6 +1,6 @@
 from django.core.mail import send_mail
-from eSmile.jokeserver.models import Subscriber, ReceivedJoke
-from eSmile.jokeserver import jokefacade
+from jokeserver.models import Subscriber, ReceivedJoke
+from jokeserver import jokefacade
 from django.conf import settings
 from django.template import Template, Context
 from django.core.urlresolvers import reverse

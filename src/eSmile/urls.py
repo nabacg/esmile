@@ -8,21 +8,21 @@ urlpatterns = patterns('',
     #MAIN app handling
     
     #joke server services ;)
-    url(r'jokes/add/$', 'eSmile.jokeserver.views.add', name='add_joke'),
-    url(r'jokes/get/$', 'eSmile.jokeserver.views.get', name='get_jokes'), 
+    url(r'jokes/add/$', 'jokeserver.views.add', name='add_joke'),
+    url(r'jokes/get/$', 'jokeserver.views.get', name='get_jokes'), 
 
     #main pages part
-    url(r'unsubscribe/$', 'eSmile.main.views.unsubscribe', name='unsubscribe'),
-    url(r'subscribers/$', 'eSmile.main.views.get_subscribers', name='get_subscribers'),
-    url(r'subscribe/$', 'eSmile.main.views.subscribe', name='subscribe_listener'),  #<= kolejnosc subscribere' methods ma znaczenie
-    url(r'(?P<username>.*)/last/joke', 'eSmile.main.views.user_main', name='user_page'),
-    url(r'(?P<username>.*)/tells/joke', 'eSmile.main.views.teller_main', name='teller_page'),
+    url(r'unsubscribe/$', 'main.views.unsubscribe', name='unsubscribe'),
+    url(r'subscribers/$', 'main.views.get_subscribers', name='get_subscribers'),
+    url(r'subscribe/$', 'main.views.subscribe', name='subscribe_listener'),  #<= kolejnosc subscribere' methods ma znaczenie
+    url(r'(?P<username>.*)/last/joke', 'main.views.user_main', name='user_page'),
+    url(r'(?P<username>.*)/tells/joke', 'main.views.teller_main', name='teller_page'),
     
     #LOGIN and LOGOUT
-    url(r'user/logout/$', 'eSmile.main.views.logout_user', name='logout'),
-    url(r'user/login/$', 'eSmile.main.views.login_user', name='login'),
+    url(r'user/logout/$', 'main.views.logout_user', name='logout'),
+    url(r'user/login/$', 'main.views.login_user', name='login'),
     
-    #(r'^sign/$', 'eSmile.main.views.sign_up'),
+    #(r'^sign/$', 'main.views.sign_up'),
     
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),

@@ -1,7 +1,7 @@
 # Create your views here.
 from django.http import HttpResponse, HttpRequest
 from django.utils import simplejson
-from eSmile.jokeserver import jokefacade
+from jokeserver import jokefacade
 
 extract_joke = lambda j: { "value": j.value, "datePosted": j.date_created.strftime('%Y-%m-%d %H:%M:%S'), "sent": j.sent }
 

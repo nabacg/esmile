@@ -1,4 +1,4 @@
-from eSmile.jokeserver.models import User, Subscriber, ReceivedJoke
+from jokeserver.models import User, Subscriber, ReceivedJoke
 
 def get_subscribers(teller):
     if not hasattr(teller, 'username'):

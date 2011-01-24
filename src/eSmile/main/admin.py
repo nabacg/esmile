@@ -1,5 +1,5 @@
 from django.contrib import admin
-from eSmile.jokeserver.models import Joke, Subscriber, ReceivedJoke
+from jokeserver.models import Joke, Subscriber, ReceivedJoke
 
 class JokeAdmin(admin.ModelAdmin):
 #    value = models.TextField()

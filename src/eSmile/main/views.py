@@ -1,14 +1,14 @@
 # Create your views here.
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render_to_response
-from eSmile.jokeserver import notificationfacade
-from eSmile.jokeserver.models import Joke
+from jokeserver import notificationfacade
+from jokeserver.models import Joke
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.template import RequestContext
-from eSmile.jokeserver import subscriberfacade
+from jokeserver import subscriberfacade
 from django.utils import simplejson
 from django.contrib.auth import login, authenticate
 

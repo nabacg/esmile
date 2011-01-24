@@ -6,9 +6,9 @@ Replace these with more appropriate tests for your application.
 """
 
 from django.test import TestCase
-from eSmile.jokeserver.models import *
-#from eSmile.jokeserver.jokefacade import get_teller_jokes
-from eSmile.jokeserver import jokefacade, subscriberfacade, notificationfacade
+from jokeserver.models import *
+#from jokeserver.jokefacade import get_teller_jokes
+from jokeserver import jokefacade, subscriberfacade, notificationfacade
 import time
 from django.test.client import Client
 from django.core.urlresolvers import reverse
@@ -240,7 +240,7 @@ class JokeServerTest(TestCase):
         self.client = Client()
        
     def test_get_json_joke_list(self):
-        response = self.client.get(reverse('eSmile.jokeserver.views.get'),data={"jokeTeller": self.teller.username})# args={self.teller.username:self.teller.username})) #'/jokes/user'
+        response = self.client.get(reverse('jokeserver.views.get'),data={"jokeTeller": self.teller.username})# args={self.teller.username:self.teller.username})) #'/jokes/user'
         expected_status = 200
         self.assertEqual(expected_status, response.status_code, "Wrong Http response status code, %d expected"%expected_status)
         content = response.content
@@ -252,7 +252,7 @@ class JokeServerTest(TestCase):
             self.assertNotEqual('', joke['value'], "Joke value can't be empty")
             
     def test_subscribe_new_listener(self):
-        response = self.client.get(reverse('eSmile.main.views.subscribe'), data = {"subscriberEmail": SUBSCRIBER_EMAIL, 'tellerUsername': TELLER_NAME})
+        response = self.client.get(reverse('main.views.subscribe'), data = {"subscriberEmail": SUBSCRIBER_EMAIL, 'tellerUsername': TELLER_NAME})
         self.assertNotEqual(None, response, "No response returned")
         response_code = 200
         self.assertEqual(response_code, response.status_code, "Wrong Http status code returned, expected %s, found %s"% (response_code, response.status_code))
@@ -277,7 +277,7 @@ class JokeServerTest(TestCase):
         self.assertTrue(listener_found, "New subscriber was not found in %s list"%self.teller.username)
     
     def test_add_new_joke(self):
-        response = self.client.post(reverse('eSmile.jokeserver.views.add'), data = {"jokeValue": JOKE_4, 'jokeTeller': TELLER_NAME})
+        response = self.client.post(reverse('jokeserver.views.add'), data = {"jokeValue": JOKE_4, 'jokeTeller': TELLER_NAME})
         self.assertNotEqual(None, response, "No response returned")
         response_code = 200
         self.assertEqual(response_code, response.status_code, "Wrong Http status code returned, expected %s, found %s"% (response_code, response.status_code))

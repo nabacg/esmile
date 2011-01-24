@@ -14,8 +14,8 @@ setup_environment()
 
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
-from eSmile.jokeserver.models import Joke
-from eSmile.jokeserver import notificationfacade
+from jokeserver.models import Joke
+from jokeserver import notificationfacade
 
 def main(argv=None):
     if argv is None:
