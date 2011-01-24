@@ -1,29 +1,32 @@
 {% extends "index.html" %}
 
 {% block sidebar %}       
-		<div class="side-panel">
-				<h3>Hello {{username}} </h3>
-				<a href="{% url logout %}">Logout</a>
-				<a href="{% url user_page username %}">See your profile</a>
-		</div>
-		<div class="joke-panel">
-			<h3>Jokes posted by {{username}}</h3>
-			<ul id="historyPanel"></ul>	
-		</div>		
+	
 		<div class="joke-panel">
 			<div id="subscribePanel">
 				<h3>Your subscribers:</h3>
 				<div id="innerSubscribePannel">
 					<ul id="subscriberListPanel"></ul>		
-					<h3>Receive {{username}}'s jokes daily</h3>
+					<h3>Add subscriber</h3>
 					<input type="text" id="subscribeInput"/>
 					<input type="button" id="subscribeButton" class="button" value="Subscribe"/>
 				</div>
 			</div>
 		</div>	
+		<div class="joke-panel">
+			<h3>Jokes posted by {{username}}</h3>
+			<ul id="historyPanel"></ul>	
+		</div>	
 {% endblock %}
 
 {% block content %}
+		<div id="addJokePanel" class="joke-panel">
+			<h3>Add new joke:</h3>
+			<div id="innerAddJokePanel">
+				<textarea id="jokeValue"></textarea>
+				<input type="button" class="button" value="Submit" id="addJokeButton" />	
+			</div>
+		</div>
 		<div id="jokePanel" class="joke-panel">
 	        <h3>{{username}}'s newest joke</h3>
 			<div id="innerJokePanel" >
@@ -36,14 +39,7 @@
 			</div>	        
 
 		</div>
-		<div id="addJokePanel" class="joke-panel">
-			<h3>Add new joke:</h3>
-			<div id="innerAddJokePanel">
-				<textarea id="jokeValue"></textarea>
-				<input type="button" class="button" value="Submit" id="addJokeButton" />	
-			</div>
-			
-		</div>
+
 		<script>
 			//wybacz dziadku Crockfordzie za to linkowanie przez globalne pole
 			window.username = '{{username}}';

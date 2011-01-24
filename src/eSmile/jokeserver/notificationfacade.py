@@ -3,6 +3,7 @@ from eSmile.jokeserver.models import Subscriber, ReceivedJoke
 from eSmile.jokeserver import jokefacade
 from django.conf import settings
 from django.template import Template, Context
+from django.core.urlresolvers import reverse
 
 def send_joke(joke, receiver_list):
     result_status = send_mail(get_email_subject(joke), get_email_content(joke), settings.DEFAULT_FROM_EMAIL, receiver_list)

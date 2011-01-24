@@ -21,6 +21,7 @@ eSmile.subscriber = (function (config){
 				alert('Kambum, sth just blew up!');
 			subscribePanel.removeClass(config.ajaxLoaderClass);	
 			innerPanel.css('visibility', '');
+			getSubscribersList(eSmile.username);
 		});
 		console.log('Subscribe post sent..');
 	}
@@ -91,7 +92,7 @@ eSmile.subscriber = (function (config){
 			return emailPattern.test(email);
 		},
 		subscribe: function(email){
-			subscribeUser(email);
+			subscribeUser(email);			
 		},
 		onSubscribe: subcribeHandler
 	}
