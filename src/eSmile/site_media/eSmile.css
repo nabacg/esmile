@@ -48,8 +48,27 @@
 	font-style: bold;
 }
 
+#innerAddJokePanel div div div {
+	text-align: right;
+}
+
+#innerAddJokePanel div div div p {
+	display: inline;	
+	width:50px;
+}
+
 #sidebar ul li {
 	 list-style: none;
+}
+
+.jokeValue {
+	width: 100%;
+	height: 300px;
+	overflow-y:scroll;
+}
+
+.collapsed {
+	display: none;
 }
 
 .ajax-hide {

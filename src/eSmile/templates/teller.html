@@ -21,10 +21,15 @@
 
 {% block content %}
 		<div id="addJokePanel" class="joke-panel">
-			<h3>Add new joke:</h3>
+			<h3>Add new joke</h3>
 			<div id="innerAddJokePanel">
-				<textarea id="jokeValue"></textarea>
+				<textarea id="jokeValue" class="jokeValue"></textarea>
+				<p id="jokePreview" class="jokeValue collapsed"></p>
 				<input type="button" class="button" value="Submit" id="addJokeButton" />	
+			
+				<div>
+					<p id="newJokePreview">Preview</p><p id="newJokeEdit">Edit</p>
+				</div>
 			</div>
 		</div>
 		<div id="jokePanel" class="joke-panel">
@@ -44,7 +49,7 @@
 			//wybacz dziadku Crockfordzie za to linkowanie przez globalne pole
 			window.username = '{{username}}';
 		</script>
-		<script src="/site_media/js/eSmile.main.js"></script>
+		<!--<script src="/site_media/js/eSmile.main.js"></script>-->
 		<script src="/site_media/js/eSmile.teller.js"></script>
 		
 {% endblock %}

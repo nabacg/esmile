@@ -28,7 +28,7 @@ def add(request):
     
     return HttpResponse(simplejson.dumps({ 
                      "success": True,
-                     "joke": extract_joke(jokefacade.add_new_joke(teller_username, joke_value))                              
+                     "joke": map(extract_joke, jokefacade.add_new_jokes(teller_username, joke_value))                              
                      }))
 
     

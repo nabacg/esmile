@@ -9,8 +9,18 @@ def get_teller_jokes(teller_name, only_sent = True):
     return joke_set.order_by('-date_created')
 #    return Joke.objects.filter(owner__username = teller_name).order_by('-date_created')
 
-def add_new_joke(teller_username, joke_text):
-    teller = User.objects.get(username=teller_username)
+def add_new_jokes(teller, jokes_text):
+    if not hasattr(teller, 'username'):
+        teller = User.objects.get(username=teller)
+    new_jokes = []
+    #assert False
+    for joke in jokes_text.split('<br/><br/><br/>'):
+        new_jokes.append(add_new_joke(teller, joke))
+    return new_jokes
+
+def add_new_joke(teller, joke_text):
+    if not hasattr(teller, 'username'):
+        teller = User.objects.get(username=teller)
     return teller.jokes.create(value=joke_text)
 
 def get_jokes_to_send():
