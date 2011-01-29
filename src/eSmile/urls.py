@@ -26,7 +26,7 @@ urlpatterns = patterns('',
     #Main index view
     url(r'^$', 'main.views.index', name='index'),
     # Uncomment the next line to enable the admin:
-     (r'^admin/', include(admin.site.urls)),
+     (r'^library/', include(admin.site.urls)),
     (r'site_media/(?P<path>[a-zA-Z0-9].*)$', 'django.views.static.serve', {'document_root': settings.STATIC_MEDIA_ROOT}),
 )
 if settings.DEBUG:

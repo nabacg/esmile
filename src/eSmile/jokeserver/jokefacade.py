@@ -2,7 +2,7 @@ from jokeserver.models import *
 
 
 def get_latest_jokes():
-    return Joke.objects.order_by('-date_created')[0: 10]
+    return Joke.objects.filter(sent = True).order_by('-date_created')[0: 10]
 
 def get_teller_jokes(teller_name, only_sent = True):
     joke_set = Joke.objects.all()#.filter(receivedjoke__send=True).distinct()
