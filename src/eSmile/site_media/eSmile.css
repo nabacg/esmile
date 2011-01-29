@@ -58,6 +58,10 @@
 	 list-style: none;
 }
 
+#latestJokeList {
+	list-style: none;
+}
+
 .joke-value {
 	width: 100%;
 	height: 300px;
