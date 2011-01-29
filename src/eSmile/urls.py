@@ -23,11 +23,8 @@ urlpatterns = patterns('',
     url(r'user/login/$', 'main.views.login_user', name='login'),
     url(r'user/register/$', 'main.views.register_user', name="register"),
     
-    #(r'^sign/$', 'main.views.sign_up'),
-    
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
+    #Main index view
+    url(r'^$', 'main.views.index', name='index'),
     # Uncomment the next line to enable the admin:
      (r'^admin/', include(admin.site.urls)),
     (r'site_media/(?P<path>[a-zA-Z0-9].*)$', 'django.views.static.serve', {'document_root': settings.STATIC_MEDIA_ROOT}),

@@ -18,6 +18,7 @@
 	
 </head>
 <!-- SCRIPTS -->
+
     <script src="/site_media/js/jquery.js"></script>
 <body>
 
@@ -34,7 +35,7 @@
 	<div id="header">	
 	
 		<div id="clouds"></div>
-		<h1 id="logo-text"><a href="" title="">Daily Joke</a></h1>
+		<h1 id="logo-text"><a href="/" title="">Daily Joke</a></h1>
 -		<p id="slogan">Start every day with a smile</p>
 	
 	</div>	
@@ -213,7 +214,8 @@
 			{% block footer %}
 				{% if logged %}
 				
-					<a href="{% url user_page username %}">See your profile</a>|
+					<a href="{% url user_page username %}">Your page</a>|
+					<a href="{% url teller_page username %}">Edit your profile</a>|
 					<a href="{% url logout %}">Logout</a>
 				{% else %}
 					<a href="{% url login %}">Login</a>

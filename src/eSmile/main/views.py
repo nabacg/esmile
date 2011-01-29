@@ -8,12 +8,15 @@ from django.contrib.auth import logout
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.template import RequestContext
-from jokeserver import subscriberfacade
+from jokeserver import subscriberfacade, jokefacade
 from django.utils import simplejson
 from django.contrib.auth import login, authenticate
+from main import userfacade
 
 def index(request):
-    return render_to_response('index.html')
+    return render_to_response('main.html', 
+                              {"latest_jokes": jokefacade.get_latest_jokes(),
+                               "most_active_tellers":  userfacade.get_most_active_users()})
 
 
 def user_main(request, username):
