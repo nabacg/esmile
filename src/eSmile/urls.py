@@ -16,11 +16,12 @@ urlpatterns = patterns('',
     url(r'subscribers/$', 'main.views.get_subscribers', name='get_subscribers'),
     url(r'subscribe/$', 'main.views.subscribe', name='subscribe_listener'),  #<= kolejnosc subscribere' methods ma znaczenie
     url(r'(?P<username>.*)/last/joke', 'main.views.user_main', name='user_page'),
-    url(r'(?P<username>.*)/tells/joke', 'main.views.teller_main', name='teller_page'),
+    url(r'(?P<user>.*)/tells/joke', 'main.views.teller_main', name='teller_page'),
     
     #LOGIN and LOGOUT
     url(r'user/logout/$', 'main.views.logout_user', name='logout'),
     url(r'user/login/$', 'main.views.login_user', name='login'),
+    url(r'user/register/$', 'main.views.register_user', name="register"),
     
     #(r'^sign/$', 'main.views.sign_up'),
     

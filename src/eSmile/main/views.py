@@ -6,11 +6,12 @@ from jokeserver.models import Joke
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.shortcuts import get_object_or_404, redirect
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.template import RequestContext
 from jokeserver import subscriberfacade
 from django.utils import simplejson
 from django.contrib.auth import login, authenticate
+from main.userfacade import create_user
 
 def index(request):
     return render_to_response('index.html')
@@ -86,12 +87,39 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return teller_main(request, user = user)
+                return redirect('teller_page', user = user.username)
         else:
             error_msg = "Wrong login or password"
     #jeze;o nie udalo sie zalogowac albo dopiero wchodzimy na strone logowania to zwracamy pusty formuarz
-    return render_to_response('login.html', {"form" : AuthenticationForm(), "form.errors": error_msg}, context_instance=RequestContext(request)) 
+    return render_to_response('login.html', 
+                              {"form" : AuthenticationForm(), "form.errors": error_msg}, 
+                              context_instance=RequestContext(request)) 
             
+def register_user(request):
+    form = UserCreationForm()
 
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            new_user = form.save()
+            return redirect('login')
+        
+    else:
+        form = UserCreationForm()
+
+    return render_to_response("login.html", {
+        'register_form' : form
+    }, context_instance=RequestContext(request))
     
+#    error_msg = None
+#    if request.method == "POST": #Tworzenie nowego usera na podstawie danych z postowanego formuarza
+#        user_form = UserCreationForm(request.POST)
+#        create_user(user_form['username'], user_form['password1'])
+#        if user_form.is_valid():
+#            return redirect('login')
+#    else:
+#        #generowanie nowego formularza
+#        user_form = UserCreationForm()
+#    
+#    return render_to_response('login.html', {'register_form': user_form })
 

@@ -6,42 +6,44 @@
         	<p  style="color:red;">{{ errors }}</p>
     {% endif %}
 
+	{% if register_form %}
+	
+	     {% if register_form.errors %}
+            {% for err in register_form.errors %}
+                <p style="color:red;">Invalid: {{ err }}</p>
+             {% endfor %}
+        {% endif %}
+
+        <form method="post" action="{% url register %}">
+            {% csrf_token %}
+            {{ register_form.as_p }}
+            <input type="submit" value="Create" />
+        </form>
+	
+	{% else %}
+
     <form method="post" action="{% url login %}">
         {% csrf_token %}
     <table class="login-form">
 	    <tr>
 	        <td>{{ form.username.label_tag }}</td>
 	        <td>{{ form.username }}</td>
-			<td><input type="submit" value="login" class="button"/></td>
 	    </tr>
 	    <tr>
 	        <td>{{ form.password.label_tag }}</td>
 	        <td>{{ form.password }}</td>
-			<td></td>
 	    </tr>
     </table>
+	
+	<input type="submit" value="login" class="button"/>
     </form>
 
+	{% endif %}
 {% endblock %}
 
 {% block sidebar %}
 				
-			<h3>Most active</h3>			
-			<ul class="sidemenu">
-				<li><a href="">Tutaj</a></li>
-				<li><a href="">moze</a></li>
-				<li><a href="">lista</a></li>
-				<li><a href="">najaktywniejszych</a> </li>
-				<li><a href="">zarto-opowiadaczy</a></li>
-			</ul>	
-				
-				
-			<h3>Latest jokes</h3>
-			<ul class="sidemenu">
-				<li><a title="">a tutaj</a></li>
-				<li><a href="" title="">moze</a></li>
-				<li><a href="" title="">lista</a></li>
-				<li><a href="" title="">najlepszych</a></li>
-				<li><a href="" title="">zartow</a></li>
-			</ul>
+			<h3>Don't have an account yet? </h3>		
+			<a href="{% url register  %}">Register</a>
+
 {% endblock %}
