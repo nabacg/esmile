@@ -11,7 +11,6 @@ from django.template import RequestContext
 from jokeserver import subscriberfacade
 from django.utils import simplejson
 from django.contrib.auth import login, authenticate
-from main.userfacade import create_user
 
 def index(request):
     return render_to_response('index.html')
