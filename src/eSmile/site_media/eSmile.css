@@ -14,7 +14,7 @@
 	border: 1px solid #211E20;
 }
 
-.joke-panel div div{
+.joke-buttons {
 	text-align: right;
 }
 
@@ -48,11 +48,8 @@
 	font-style: bold;
 }
 
-#innerAddJokePanel div div div {
-	text-align: right;
-}
 
-#innerAddJokePanel div div div p {
+#innerAddJokePanel p {
 	display: inline;	
 	width:50px;
 }
@@ -61,10 +58,11 @@
 	 list-style: none;
 }
 
-.jokeValue {
+.joke-value {
 	width: 100%;
 	height: 300px;
 	overflow-y:scroll;
+	display: block;
 }
 
 .collapsed {

@@ -29,17 +29,6 @@
 			</div>	        
 
 		</div>
-
-			{% if logged %}
-				<div id="addJokePanel" class="joke-panel">
-					<h3>Add new joke:</h3>
-					<div id="innerAddJokePanel">
-						<textarea id="jokeValue"></textarea>
-						<input type="button" class="button" value="Submit" id="addJokeButton" />	
-					</div>
-					
-				</div>
-			{% endif %}
 		<script>
 			//wybacz dziadku Crockfordzie za to linkowanie przez globalne pole
 			window.username = '{{username}}';

@@ -23,13 +23,12 @@
 		<div id="addJokePanel" class="joke-panel">
 			<h3>Add new joke</h3>
 			<div id="innerAddJokePanel">
-				<textarea id="jokeValue" class="jokeValue"></textarea>
-				<p id="jokePreview" class="jokeValue collapsed"></p>
-				<input type="button" class="button" value="Submit" id="addJokeButton" />	
-			
+				<textarea id="jokeValue" class="joke-value "></textarea>
 				<div>
-					<p id="newJokePreview">Preview</p><p id="newJokeEdit">Edit</p>
+					<p id="jokePreview" class="joke-value  collapsed"></p>
 				</div>
+				<input type="button" class="button" value="Submit" id="addJokeButton" />	
+				<p id="newJokePreview">Preview</p><p id="newJokeEdit">Edit</p>
 			</div>
 		</div>
 		<div id="jokePanel" class="joke-panel">
@@ -37,7 +36,7 @@
 			<div id="innerJokePanel" >
 				<p id='joke_field' class="joke-field"></p>        
 				<p id="joke_date" class="joke-date">Posted on: </p>
-				<div>
+				<div class="joke-buttons">
 					<input class="button" type="button" value="Prev" id="prevButton"/>
 					<input class="button" type="button" value="Next" id="nextButton"/>
 				</div>							
