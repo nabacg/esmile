@@ -12,34 +12,23 @@ from jokeserver import subscriberfacade, jokefacade
 from django.utils import simplejson
 from django.contrib.auth import login, authenticate
 from main import userfacade
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render_to_response('main.html', 
                               {"latest_jokes": jokefacade.get_latest_jokes(),
-                               "most_active_tellers":  userfacade.get_most_active_users()})
+                               "most_active_tellers":  userfacade.get_most_active_users()}, context_instance=RequestContext(request))
 
 
 def user_main(request, username):
-    if request.user.is_authenticated():
-        logged = True
-    else:
-        logged = False
     user = get_object_or_404(User, username=username)
-    return render_to_response('user.html', {"username": user.username, "logged": logged})
+    return render_to_response('user.html', {"username": user.username}, context_instance=RequestContext(request))
 
+@login_required
 def teller_main(request, user):
     if not hasattr(user, 'username'): # sie znaczy przekazano nie usera a username
         user = r = get_object_or_404(User, username=user)
-    return render_to_response('teller.html', {"username": user.username, "logged": True})
-
-def send_mail(request):
-    for joke in Joke.objects.all().order_by('date_created'):#[0]#(value = JOKE_3)
-        teller = joke.owner
-        receiver_list = map(lambda r: str(r.receiver_email), teller.joke_listeners.all())
-        print receiver_list
-        notificationfacade.send_joke(joke, receiver_list)
-    
-    return HttpResponse("")
+    return render_to_response('teller.html', {"username": user.username, "logged": True}, context_instance=RequestContext(request))
 
 def subscribe(request):
     if request.method == "POST":
