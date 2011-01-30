@@ -22,7 +22,8 @@ urlpatterns = patterns('',
     url(r'user/logout/$', 'main.views.logout_user', name='logout'),
     url(r'user/login/$', 'main.views.login_user', name='login'),
     url(r'user/register/$', 'main.views.register_user', name="register"),
-    
+    url(r'user/edit/$', 'main.views.edit_user', name='edit_user'),
+    url(r'user/edit/password/$', 'main.views.change_password', name='change_password'),
     #Main index view
     url(r'^$', 'main.views.index', name='index'),
     # Uncomment the next line to enable the admin:

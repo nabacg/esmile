@@ -6,13 +6,15 @@ from jokeserver.models import Joke
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.shortcuts import get_object_or_404, redirect
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm,\
+    PasswordChangeForm
 from django.template import RequestContext
 from jokeserver import subscriberfacade, jokefacade
 from django.utils import simplejson
 from django.contrib.auth import login, authenticate
 from main import userfacade
 from django.contrib.auth.decorators import login_required
+from main.forms import UserEditForm
 
 def index(request):
     return render_to_response('main.html', 
@@ -87,8 +89,6 @@ def login_user(request):
                               context_instance=RequestContext(request)) 
             
 def register_user(request):
-    form = UserCreationForm()
-
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -102,15 +102,30 @@ def register_user(request):
         'register_form' : form
     }, context_instance=RequestContext(request))
     
-#    error_msg = None
-#    if request.method == "POST": #Tworzenie nowego usera na podstawie danych z postowanego formuarza
-#        user_form = UserCreationForm(request.POST)
-#        create_user(user_form['username'], user_form['password1'])
-#        if user_form.is_valid():
-#            return redirect('login')
-#    else:
-#        #generowanie nowego formularza
-#        user_form = UserCreationForm()
-#    
-#    return render_to_response('login.html', {'register_form': user_form })
+@login_required    
+def edit_user(request):
+    if request.method == 'POST':
+        form = UserEditForm(request.POST, instance= request.user)
+        if form.is_valid():
+            form.save()
+    else:
+        form = UserEditForm(instance = request.user)
+        
+    return render_to_response('user_edit.html', 
+                              {'edit_form': form}, 
+                              context_instance = RequestContext(request))
 
+@login_required    
+def change_password(request):
+    if request.method == 'POST':       
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            request.user.set_password(request.POST['new_password1'])
+            request.user.save()
+            redirect('edit_form')
+    else:
+        form = PasswordChangeForm(request.user)
+        
+    return render_to_response('change_password.html',
+                              {'password_form': form},
+                              context_instance = RequestContext(request))
