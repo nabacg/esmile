@@ -27,13 +27,13 @@
 		
 		<ul>
 				{% if user.is_authenticated %}
-					<li>	Hello {{ user.username }} </li>
-					<li>	<a href="{% url user_page user.username %}">Your joke page</a> </li>
-					<li>	<a href="{% url teller_page user.username %}">Manage your jokes</a> </li>
-					<li>	<a href="{% url edit_user %}">Edit your profile </a></li>
-					<li>	<a href="{% url logout %}">Logout</a> </li>
+					<li>	Witaj {{ user.username }} </li>
+					<li>	<a href="{% url user_page user.username %}">Twoje żarty</a> </li>
+					<li>	<a href="{% url teller_page user.username %}">Zarządzanie żartami</a> </li>
+					<li>	<a href="{% url edit_user %}">Edytuj konta </a></li>
+					<li>	<a href="{% url logout %}">Wyloguj</a> </li>
 				{% else %}
-					<li><a href="{% url login %}">Login</a></li>
+					<li><a href="{% url login %}">Zaloguj</a></li>
 				{% endif %}
 		</ul>
 	
@@ -44,8 +44,12 @@
 	
 		<div id="clouds"></div>
 		<h1 id="logo-text"><a href="/" title="">Daily Joke</a></h1>
--		<p id="slogan">Start every day with a smile</p>
-	
+		
+		{% if username %}
+	-		<p id="slogan">Żarty użytkownika {{username}}</p>
+		{% else %}
+			<p id="slogan">Zaczynaj każdy dzien z usmiechem</p>
+		{% endif %}
 	</div>	
 
 	<!-- content-wrap starts here -->
@@ -222,12 +226,12 @@
 			{% block footer %}
 				{% if user.is_authenticated %}
 					Hello {{ user.username }} |
-					<a href="{% url user_page user.username %}">Your joke page</a>|
-					<a href="{% url teller_page user.username %}">Manage your jokes</a>|
-					<a href="{% url edit_user %}">Edit your profile </a>|
-					<a href="{% url logout %}">Logout</a>
+					<a href="{% url user_page user.username %}">Twoje żarty</a>|
+					<a href="{% url teller_page user.username %}">Zarządzaj żartami</a>|
+					<a href="{% url edit_user %}">Edytuj profil </a>|
+					<a href="{% url logout %}">Wyloguj</a>
 				{% else %}
-					<a href="{% url login %}">Login</a>
+					<a href="{% url login %}">Zaloguj</a>
 				{% endif %}
 			{% endblock %}
 			</p>		

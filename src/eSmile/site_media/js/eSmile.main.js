@@ -232,7 +232,7 @@ eSmile.jokeModel = (function(config){
 		jokePanel.stop().fadeTo('fast', 0.3);
 		//jokePanel.fadeOut();
 		jokeField.html(joke.value);
-		dateField.text('Posted on: ' + joke.datePosted);
+		dateField.text('Dodano: ' + joke.datePosted);
 		joke.historyEntry.mark();
 		jokePanel.fadeTo('slow', 1);
 		//jokePanel.fadeIn('slow');

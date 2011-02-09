@@ -4,44 +4,44 @@
 	
 		<div class="joke-panel">
 			<div id="subscribePanel">
-				<h3>Your subscribers:</h3>
+				<h3>Twoi słuchacze</h3>
 				<div id="innerSubscribePannel">
 					<ul id="subscriberListPanel"></ul>		
-					<h3>Add subscriber</h3>
+					<h3>Dodaj słuchacza</h3>
 					<input type="text" id="subscribeInput"/>
-					<input type="button" id="subscribeButton" class="button" value="Subscribe"/>
+					<input type="button" id="subscribeButton" class="button" value="Dodaj"/>
 				</div>
 			</div>
 		</div>	
 		<div class="joke-panel">
-			<h3>Jokes posted by {{username}}</h3>
+			<h3>Żarty dodane przez Ciebie</h3>
 			<ul id="historyPanel"></ul>	
 		</div>	
 {% endblock %}
 
 {% block content %}
 		<div id="addJokePanel" class="joke-panel">
-			<h3>Add new joke</h3>
+			<h3>Dodaj nowy żart</h3>
 			<div id="innerAddJokePanel">
 				<textarea id="jokeValue" class="joke-value "></textarea>
 				<div>
 					<p id="jokePreview" class="joke-value  collapsed"></p>
 				</div>
-				<input type="button" class="button" value="Submit" id="addJokeButton" />	
-				<p id="newJokePreview">Preview</p><p id="newJokeEdit">Edit</p>
+				<input type="button" class="button" value="Dodaj" id="addJokeButton" />	
+				<p id="newJokePreview">Podgląd</p><p id="newJokeEdit">Edycja</p>
 			</div>
 		</div>
 		<div id="jokePanel" class="joke-panel">
-	        <h3>{{username}}'s newest joke</h3>
+	        <h3>Mój najnowszy żart</h3>
 			<div id="innerJokePanel" >
+				<div>
+					<input class="button" type="button" value="Następny" id="prevButton"/>
+					<input class="button" type="button" value="Poprzedni" id="nextButton"/>
+				</div>	
 				<p id='joke_field' class="joke-field"></p>        
-				<p id="joke_date" class="joke-date">Posted on: </p>
-				<div class="joke-buttons">
-					<input class="button" type="button" value="Prev" id="prevButton"/>
-					<input class="button" type="button" value="Next" id="nextButton"/>
-				</div>							
+				<p id="joke_date" class="joke-date">Dodano: </p>
+						
 			</div>	        
-
 		</div>
 
 		<script>

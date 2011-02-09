@@ -10,7 +10,7 @@
 	
 	     {% if register_form.errors %}
             {% for err in register_form.errors %}
-                <p style="color:red;">Invalid: {{ err }}</p>
+                <p style="color:red;">Błąd: {{ err }}</p>
              {% endfor %}
         {% endif %}
 
@@ -35,7 +35,7 @@
 	    </tr>
     </table>
 	
-	<input type="submit" value="login" class="button"/>
+	<input type="submit" value="Zaloguj" class="button"/>
     </form>
 
 	{% endif %}
@@ -43,7 +43,7 @@
 
 {% block sidebar %}
 				
-			<h3>Don't have an account yet? </h3>		
-			<a href="{% url register  %}">Register</a>
+			<h3>Nie masz jeszcze konta? </h3>		
+			<a href="{% url register  %}">Utwórz konto</a>
 
 {% endblock %}

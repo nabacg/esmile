@@ -2,15 +2,15 @@
 
 {% block sidebar %}       
 		<div class="joke-panel">
-			<h3>Jokes posted by {{username}}</h3>
+			<h3>Opowiedziane żarty</h3>
 			<ul id="historyPanel"></ul>	
 		</div>		
 		<div class="joke-panel">
 			<div id="subscribePanel">
-				<h3>Receive {{username}}'s jokes daily</h3>
+				<h3>Chcesz dostawać żarty moje codziennie rano?</h3>
 				<div id="innerSubscribePannel">	
 					<input type="text" id="subscribeInput"/>
-					<input type="button" id="subscribeButton" class="button" value="Subscribe"/>
+					<input type="button" id="subscribeButton" class="button" value="Subskrybuj"/>
 				</div>
 			</div>
 		</div>	
@@ -18,14 +18,15 @@
 
 {% block content %}
 		<div id="jokePanel" class="joke-panel">
-	        <h3>{{username}}'s newest joke</h3>
+	        <h3>Mój najnowszy żart</h3>
 			<div id="innerJokePanel" >
-				<p id='joke_field' class="joke-field"></p>        
-				<p id="joke_date" class="joke-date">Posted on: </p>
 				<div>
-					<input class="button" type="button" value="Prev" id="prevButton"/>
-					<input class="button" type="button" value="Next" id="nextButton"/>
-				</div>							
+					<input class="button" type="button" value="Następny" id="prevButton"/>
+					<input class="button" type="button" value="Poprzedni" id="nextButton"/>
+				</div>	
+				<p id='joke_field' class="joke-field"></p>        
+				<p id="joke_date" class="joke-date">Dodano: </p>
+						
 			</div>	        
 
 		</div>

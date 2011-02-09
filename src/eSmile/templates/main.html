@@ -1,7 +1,7 @@
 {% extends "index.html" %}
 
 {% block sidebar %}       
-
+			<h2>Najaktywniejsi żartownisie</h2>
 				<ul>
 				{% for teller in most_active_tellers %}
 					<li><a href="/{{teller.username}}/last/joke">{{teller.username}}</a></li>
@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-		<h2>Newest jokes on site</h2>	
+		<h2>Ostatnio opowiedziane żarty</h2>	
 			<ul id="latestJokeList">
 				{% autoescape off %}
 					{% for joke in latest_jokes %}
