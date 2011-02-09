@@ -20,7 +20,8 @@ eSmile.subscriber = (function (config){
 		alert('Subscribe URL missing, can\'t work this way!!');
 		
 	var subscribeUser = function (email) {
-		subscribePanel.addClass(config.ajaxLoaderClass);
+		addListElement(email, subscribersList);
+		//subscribePanel.addClass(config.ajaxLoaderClass);
 		$.getJSON(config.add_url, 
 			{
 				subscriberEmail: email,
@@ -31,11 +32,12 @@ eSmile.subscriber = (function (config){
 				console.log('congrats, your\'re gonne listen to his jokes every day now!');
 			else
 				alert('Kambum, sth just blew up!');
-			subscribePanel.removeClass(config.ajaxLoaderClass);	
-			innerPanel.css('visibility', '');
-			getSubscribersList(eSmile.username);
+			//subscribePanel.removeClass(config.ajaxLoaderClass);	
+			//innerPanel.css('visibility', '');
+			//getSubscribersList(eSmile.username);
+			
 		});
-		console.log('Subscribe post sent..');
+		//console.log('Subscribe post sent..');
 	}
 	
 	var subcribeHandler = function () {
@@ -44,7 +46,7 @@ eSmile.subscriber = (function (config){
 		if (email && eSmile.subscriber.validEmail(email)) {
 			emailField.removeClass('error');
 			//emailField.hide();
-			innerPanel.css('visibility', 'hidden');
+			//innerPanel.css('visibility', 'hidden');
 			subscribeUser(email);
 			emailField.val('');
 		}
@@ -64,6 +66,22 @@ eSmile.subscriber = (function (config){
 			});
 	}
 	
+	var addListElement = function (listenerName, subscribersList)
+	{
+		var newEntry, removeButton;
+		newEntry = $("<li ></li>").text(listenerName);	
+					removeButton = $("<p style='cursor:pointer;display:inline;'></p>").text('Remove?');
+					removeButton.click((function(listenerName){
+							return function(e){
+								$(e.target).parent().remove();
+								unsubscribe(listenerName);
+							}
+						})(listenerName));
+					removeButton.appendTo(newEntry);
+					
+		newEntry.appendTo(subscribersList);
+	}
+	
 	var getSubscribersList = function(tellerName) {
 		subscribePanel.addClass(config.ajaxLoaderClass);
 		$.getJSON(config.get_url, 
@@ -72,9 +90,11 @@ eSmile.subscriber = (function (config){
 			}, 
 			function (response) {
 			if (response && response.success === true) {
-				var newEntry, removeButton, listenerName;
+				//var newEntry, removeButton, listenerName;
 				for(var i = 0; i < response.data.length; i++){
-					listenerName = response.data[i];
+					//listenerName = response.data[i];
+					addListElement(response.data[i], subscribersList);
+					/*
 					newEntry = $("<li ></li>").text(listenerName);	
 					removeButton = $("<p style='cursor:pointer;display:inline;'></p>").text('Remove?');
 					removeButton.click((function(listenerName){
@@ -85,7 +105,8 @@ eSmile.subscriber = (function (config){
 						})(listenerName));
 					removeButton.appendTo(newEntry);
 					
-					newEntry.appendTo(subscribersList);
+
+					newEntry.appendTo(subscribersList);*/
 				}
 				
 				console.log('congrats, you just got your list!');
