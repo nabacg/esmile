@@ -28,10 +28,12 @@ eSmile.subscriber = (function (config){
 				tellerUsername: eSmile.username
 			}, 
 			function (data) {
+/*
 			if(data && data.success === true)
 				console.log('congrats, your\'re gonne listen to his jokes every day now!');
 			else
 				alert('Kambum, sth just blew up!');
+*/
 			//subscribePanel.removeClass(config.ajaxLoaderClass);	
 			//innerPanel.css('visibility', '');
 			//getSubscribersList(eSmile.username);
@@ -61,8 +63,10 @@ eSmile.subscriber = (function (config){
 				subscriberUsername: listenerUsername
 			}, 
 			function (response) {
+/*
 				if(response.success)
 					console.log('You\'re no longer listening to his jokes');
+*/
 			});
 	}
 	
@@ -109,14 +113,14 @@ eSmile.subscriber = (function (config){
 					newEntry.appendTo(subscribersList);*/
 				}
 				
-				console.log('congrats, you just got your list!');
+				//console.log('congrats, you just got your list!');
 			}
 			else 
 				alert('Kambum, sth just blew up!');
 			subscribePanel.removeClass(config.ajaxLoaderClass);	
 			innerPanel.css('visibility', '');
 		});
-		console.log('Subscribe post sent..');
+		//console.log('Subscribe post sent..');
 	}
 	getSubscribersList(eSmile.username);
 	return {
@@ -315,7 +319,7 @@ eSmile.jokeModel = (function(config){
 			showJoke(joke);
 			currentJoke += 1;
 		}
-		console.log(currentJoke);
+		//console.log(currentJoke);
 	}
 	
 	var showPrevJoke = function(){
@@ -327,7 +331,7 @@ eSmile.jokeModel = (function(config){
 			showJoke(joke);
 			currentJoke -= 1;
 		}		
-		console.log(currentJoke);
+		//console.log(currentJoke);
 	}
 	
 	var showPassedJoke = function(joke, index){
@@ -338,7 +342,7 @@ eSmile.jokeModel = (function(config){
 			showJoke(joke);
 			currentJoke = index;
 		}	
-		console.log(currentJoke);
+		//console.log(currentJoke);
 	}
 	
 	
