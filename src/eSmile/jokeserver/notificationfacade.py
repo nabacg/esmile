@@ -13,7 +13,7 @@ def send_joke(joke, receiver_list):
  
 # tutaj trzeba zaprzadz django-template'y w towrzenie ladnego maila
 def get_email_content(joke):
-     new_email = Template("Poranny dowcip od {{ user_name }}:\n\n {{ joke_text }} \n\n\n \t\t\t dodany {{ posted_on }} \n")
+     new_email = Template("Poranny dowcip od {{ user_name }}:\n\n {{ joke_text }} \n\n\n \t\t\t dodany {{ posted_on }} \n\n\n \t\t\t Zobacz wiecej na: http://{{esmile_url}}")
      context = Context({
                         "user_name": joke.owner.username,
                         "joke_text": joke.value.replace('<br/>', '\n'),

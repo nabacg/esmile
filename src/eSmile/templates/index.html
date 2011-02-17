@@ -30,7 +30,7 @@
 					<li>	Witaj {{ user.username }} </li>
 					<li>	<a href="{% url user_page user.username %}">Twoje żarty</a> </li>
 					<li>	<a href="{% url teller_page user.username %}">Zarządzanie żartami</a> </li>
-					<li>	<a href="{% url edit_user %}">Edytuj konta </a></li>
+					<li>	<a href="{% url edit_user %}">Edytuj profil </a></li>
 					<li>	<a href="{% url logout %}">Wyloguj</a> </li>
 				{% else %}
 					<li><a href="{% url login %}">Zaloguj</a></li>

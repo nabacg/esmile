@@ -367,7 +367,7 @@ eSmile.jokeModel = (function(config){
 })({
 	getUrl: '/jokes/get/',
 	addUrl: '/jokes/add/',
-	jokeFieldId: '#joke_field',
+	jokeFieldId: '#joke_field', //'#jokeValue'
 	dateFieldId: '#joke_date',
 	addJokePanel: "#addJokePanel",
 	innerAddJokePanelId: '#innerAddJokePanel',
