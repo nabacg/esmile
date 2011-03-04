@@ -32,7 +32,7 @@ DATABASES = {
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'nabacg@gmail.com'
-EMAIL_HOST_PASSWORD = 'szcz*8ek'
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = "nabacg@gmail.com"
 
