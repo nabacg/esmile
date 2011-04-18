@@ -122,7 +122,7 @@ def change_password(request):
         if form.is_valid():
             request.user.set_password(request.POST['new_password1'])
             request.user.save()
-            redirect('edit_form')
+            return redirect('edit_user')
     else:
         form = PasswordChangeForm(request.user)
         
