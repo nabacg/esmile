@@ -18,7 +18,7 @@ def send_joke(joke, receiver_list):
  
 # tutaj trzeba zaprzadz django-template'y w towrzenie ladnego maila
 def get_email_content(joke):
-     new_email = Template("Poranny dowcip od {{ user_name }}:\n\n {{ joke_text }} \n\n\n \t\t\t dodany {{ posted_on }} \n\n\n \t\t\t Zobacz wiecej na: http://{{esmile_url}}")
+     new_email = Template("{{ user_name }} przesyla:\n\n {{ joke_text }} \n\n\n \t\t\t dodany {{ posted_on }} \n\n\n \t\t\t Zobacz wiecej na: http://{{esmile_url}}")
      context = Context({
                         "user_name": joke.owner.username,
                         "joke_text": joke.value.replace('<br/>', '\n'),
@@ -30,7 +30,7 @@ def get_email_content(joke):
 #     return %(joke.value, str(joke.date_created))
  
 def get_email_subject(joke):
-    return "SMILE: %s's Daily joke!"%joke.owner.username
+    return "eSMILE: %s's Daily!"%joke.owner.username
 
  #probably refactor to separate class, SendingQueue 
  # might also make sense to store it somewhere, like DB and just get it back and send send newest ones..  
