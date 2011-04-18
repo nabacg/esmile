@@ -1,4 +1,4 @@
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from jokeserver.models import Subscriber, ReceivedJoke
 from jokeserver import jokefacade
 from django.conf import settings
@@ -6,10 +6,15 @@ from django.template import Template, Context
 from django.core.urlresolvers import reverse
 
 def send_joke(joke, receiver_list):
-    result_status = send_mail(get_email_subject(joke), get_email_content(joke), settings.DEFAULT_FROM_EMAIL, receiver_list)
+
+    email = EmailMessage(get_email_subject(joke), get_email_content(joke), settings.DEFAULT_FROM_EMAIL,
+            [], receiver_list)
+    result = email.send(fail_silently=False)
+    #print "RESULT %i"% result
+    return result
 #    print "RESULT STATUS %d" % result_status
-    if result_status != 1:
-        raise NameError("Can send god damn email, meen.")
+#    if result_status != 1:
+#        raise NameError("Can send god damn email, meen.")
  
 # tutaj trzeba zaprzadz django-template'y w towrzenie ladnego maila
 def get_email_content(joke):
