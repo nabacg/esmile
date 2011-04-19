@@ -18,7 +18,7 @@ def send_joke(joke, receiver_list):
  
 # tutaj trzeba zaprzadz django-template'y w towrzenie ladnego maila
 def get_email_content(joke):
-     new_email = Template("{{ user_name }} przesyla:\n\n {{ joke_text }} \n\n\n \t\t\t dodany {{ posted_on }} \n\n\n \t\t\t Zobacz wiecej na: http://{{esmile_url}}")
+     new_email = Template("{{ user_name|safe }} przesyla:\n\n {{ joke_text|safe }} \n\n\n \t\t\t dodany {{ posted_on }} \n\n\n \t\t\t Zobacz wiecej na: http://{{esmile_url}}")
      context = Context({
                         "user_name": joke.owner.username,
                         "joke_text": joke.value.replace('<br/>', '\n'),
