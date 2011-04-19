@@ -21,7 +21,7 @@ def get_email_content(joke):
      new_email = Template("{{ user_name|safe }} przesyla:\n\n {{ joke_text|safe }} \n\n\n \t\t\t dodany {{ posted_on }} \n\n\n \t\t\t Zobacz wiecej na: http://{{esmile_url}}")
      context = Context({
                         "user_name": joke.owner.username,
-                        "joke_text": joke.value.replace('<br/>', '\n'),
+                        "joke_text": joke.value, #.replace('<br/>', '\n'),
                         "posted_on": joke.date_created,
                         "esmile_url": "www.esmile.gmc.megiteam.pl/%s/last/joke" % joke.owner.username 
                         })

@@ -24,7 +24,7 @@ def add(request):
         params =  request.GET
     teller_username = params["jokeTeller"]
     joke_value = params["jokeValue"]
-    joke_value = joke_value.replace('\n', '<br/>')
+    #joke_value = joke_value.replace('\n', '<br/>')
     
     return HttpResponse(simplejson.dumps({ 
                      "success": True,

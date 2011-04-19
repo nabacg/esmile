@@ -12,13 +12,11 @@
 {% block content %}
 		<h2>Ostatnio opowiedziane żarty</h2>	
 			<ul id="latestJokeList">
-				{% autoescape off %}
 					{% for joke in latest_jokes %}
 
 
 						<li><p>{{joke.value}}</p></li>
 					{% endfor %}
-				{% endautoescape %}
 			</ul>	
 		
 {% endblock %}
