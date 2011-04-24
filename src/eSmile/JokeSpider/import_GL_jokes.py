@@ -58,8 +58,9 @@ def get_joke_list(page_content):
                 
     return joke_list
 
+#import os.path
 
-pickle_file = 'last_page_number.txt'
+pickle_file = os.path.abspath('last_page_number.txt')
 def get_page_number():
     f = open(pickle_file, 'r')
     num = int(f.read())
