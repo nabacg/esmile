@@ -63,6 +63,7 @@ if os.name == 'nt':
     pickle_file = 'last_page_number.txt'
 else:
     picke_file = '/home/gmc/www/eSmile/eSmileRepo/eSmile/src/eSmile/JokeSpider/last_page_number.txt'
+
 def get_page_number():
     f = open(pickle_file, 'r')
     num = int(f.read())
