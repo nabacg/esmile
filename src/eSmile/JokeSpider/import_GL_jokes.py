@@ -59,8 +59,10 @@ def get_joke_list(page_content):
     return joke_list
 
 #import os.path
-
-pickle_file = os.path.abspath('last_page_number.txt')
+if os.name == 'nt':
+    pickle_file = 'last_page_number.txt'
+else:
+    picke_file = '/home/gmc/www/eSmile/eSmileRepo/eSmile/src/eSmile/JokeSpider/last_page_number.txt'
 def get_page_number():
     f = open(pickle_file, 'r')
     num = int(f.read())
