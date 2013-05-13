@@ -18,12 +18,19 @@ def send_joke(joke, receiver_list):
  
 # tutaj trzeba zaprzadz django-template'y w towrzenie ladnego maila
 def get_email_content(joke):
-     new_email = Template("{{ user_name|safe }} przesyla:\n\n {{ joke_text|safe }} \n\n\n \t\t\t dodany {{ posted_on }} \n\n\n \t\t\t Zobacz wiecej na: http://{{esmile_url}}")
+     new_email = Template("""{{ user_name|safe }} przesyla:\n\n 
+                             {{ joke_text|safe }} \n\n\n \t\t\t dodany {{ posted_on }} 
+                             \n\n\n \t\t\t 
+                             Dobry zart? Zaglosuj: http://{{up_vote_url}}\n
+                             Suchar? Zaglosuj: http://{{down_vote_url}}\n
+                             Zobacz wiecej na: http://{{esmile_url}}""")
      context = Context({
                         "user_name": joke.owner.username,
                         "joke_text": joke.value, #.replace('<br/>', '\n'),
                         "posted_on": joke.date_created,
-                        "esmile_url": "www.esmile.gmc.megiteam.pl/%s/last/joke" % joke.owner.username 
+                        "esmile_url": "www.esmile.gmc.megiteam.pl/%s/last/joke" % joke.owner.username,
+                        "up_vote_url":"www.esmile.gmc.megiteam.pl/jokes/upvote/%s" % joke.id,
+                        "down_vote_url":"www.esmile.gmc.megiteam.pl/jokes/downvote/%s" % joke.id
                         })
      return new_email.render(context)
  

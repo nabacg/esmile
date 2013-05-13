@@ -31,3 +31,21 @@ def get_jokes_to_send():
     # we wanna send older one first
     return Joke.objects.filter(sent = False).order_by('date_created') #.filter(receivedjoke__send=False).distinct()
 
+
+def vote_up(joke_id):
+    joke = Joke.objects.filter(id = joke_id)
+    if joke:
+        joke[0].up_votes += 1
+        return True
+    
+    return False
+    
+    
+def vote_down(joke_id):
+    joke = Joke.objects.filter(id = joke_id)
+    if joke:
+        joke[0].down_votes += 1
+        return True
+    
+    return False
+

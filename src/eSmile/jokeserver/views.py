@@ -2,9 +2,11 @@
 from django.http import HttpResponse, HttpRequest
 from django.utils import simplejson
 from jokeserver import jokefacade
+from django.views.decorators.csrf import csrf_exempt
 
 extract_joke = lambda j: { "value": j.value, "datePosted": j.date_created.strftime('%Y-%m-%d %H:%M:%S'), "sent": j.sent }
 
+@csrf_exempt
 def get(request):
     if request.method == "POST":
         params =  request.POST
@@ -17,6 +19,7 @@ def get(request):
                 map(  extract_joke, 
                      jokefacade.get_teller_jokes(teller_username, only_sent = not is_owner))))
     
+@csrf_exempt
 def add(request):
     if request.method == "POST":
         params =  request.POST
@@ -31,4 +34,4 @@ def add(request):
                      "joke": map(extract_joke, jokefacade.add_new_jokes(teller_username, joke_value))                              
                      }))
 
-    
+      

@@ -6,8 +6,7 @@ from jokeserver.models import Joke
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.shortcuts import get_object_or_404, redirect
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm,\
-    PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm,PasswordChangeForm
 from django.template import RequestContext
 from jokeserver import subscriberfacade, jokefacade
 from django.utils import simplejson
@@ -25,6 +24,15 @@ def index(request):
 def user_main(request, username):
     user = get_object_or_404(User, username=username)
     return render_to_response('user.html', {"username": user.username}, context_instance=RequestContext(request))
+
+def joke_vote_up(request, joke_id):
+    jokefacade.vote_up(joke_id)
+    return render_to_response('voting.html')
+
+def joke_vote_down(request, joke_id):
+    jokefacade.vote_down(joke_id)
+    return render_to_response('voting.html')
+
 
 @login_required
 def teller_main(request, user):

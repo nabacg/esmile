@@ -17,6 +17,8 @@ urlpatterns = patterns('',
     url(r'subscribe/$', 'main.views.subscribe', name='subscribe_listener'),  #<= kolejnosc subscribere' methods ma znaczenie
     url(r'(?P<username>.*)/last/joke', 'main.views.user_main', name='user_page'),
     url(r'(?P<user>.*)/tells/joke', 'main.views.teller_main', name='teller_page'),
+    url(r'jokes/upvote/(?P<joke_id>[0-9].*)', 'main.views.joke_vote_up', name='up_vote_joke'),
+    url(r'jokes/downvote/(?P<joke_id>[0-9].*)', 'main.views.joke_vote_down', name='down_vote_joke'),
     
     #LOGIN and LOGOUT
     url(r'user/logout/$', 'main.views.logout_user', name='logout'),
@@ -24,6 +26,7 @@ urlpatterns = patterns('',
     url(r'user/register/$', 'main.views.register_user', name="register"),
     url(r'user/edit/$', 'main.views.edit_user', name='edit_user'),
     url(r'user/edit/password/$', 'main.views.change_password', name='change_password'),
+    
     #Main index view
     url(r'^$', 'main.views.index', name='index'),
     # Uncomment the next line to enable the admin:

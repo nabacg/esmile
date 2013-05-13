@@ -9,6 +9,8 @@ class Joke(models.Model):
     date_created = models.DateTimeField(auto_now_add = True)
     date_last_update = models.DateTimeField(auto_now=True)
     sent = models.BooleanField(default=False)
+    up_votes = models.IntegerField(default = 0)
+    down_votes = models.IntegerField(default = 0)
     
     def __unicode__(self):
         return "%s: %s" % (self.owner.username, self.value)
